@@ -50,7 +50,7 @@ export default function Home() {
         <FeatureSection
           title="Conseil & Accompagnement"
           subtitle="Support Continu"
-          description="LB ASSUR et son équipe vous apportent conseil, écoute et accompagnement durant toute la durée de votre contrat. Une réelle prise en compte de chaque assuré pour suivre l’évolution des risques."
+          description="LBASSUR et son équipe vous apportent conseil, écoute et accompagnement durant toute la durée de votre contrat. Une réelle prise en compte de chaque assuré pour suivre l’évolution des risques."
           backgroundImage="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2070&auto=format&fit=crop"
           align="left"
         />

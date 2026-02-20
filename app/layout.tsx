@@ -15,21 +15,21 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "LB ASSUR - Courtier en Assurance Multi-spécialiste",
-  description: "LB ASSUR est votre partenaire de confiance pour la recherche et la négociation des meilleures solutions d’assurance. Particuliers, professionnels et entreprises.",
-  keywords: ["assurance", "courtier", "LB ASSUR", "Cotonou", "Bénin", "audit assurance", "indemnisation"],
-  authors: [{ name: "LB ASSUR" }],
+  title: "LBASSUR - Votre expert en solutions d'assurance au Bénin",
+  description: "LBASSUR est votre partenaire de confiance pour la recherche et la négociation des meilleures solutions d’assurance. Particuliers, professionnels et entreprises.",
+  keywords: ["assurance", "courtier", "LBASSUR", "Cotonou", "Bénin", "audit assurance", "indemnisation"],
+  authors: [{ name: "LBASSUR" }],
   openGraph: {
-    title: "LB ASSUR - Courtier en Assurance Multi-spécialiste",
+    title: "LBASSUR - Courtier en Assurance Multi-spécialiste",
     description: "Solutions d'assurance sur mesure pour particuliers et entreprises.",
     url: "https://lbassur.com",
-    siteName: "LB ASSUR",
+    siteName: "LBASSUR",
     images: [
       {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "LB ASSUR - Courtier en Assurance",
+        alt: "LBASSUR - Courtier en Assurance",
       },
     ],
     locale: "fr_FR",
@@ -37,13 +37,13 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "LB ASSUR - Courtier en Assurance Multi-spécialiste",
+    title: "LBASSUR - Courtier en Assurance Multi-spécialiste",
     description: "Solutions d'assurance sur mesure pour particuliers et entreprises.",
     images: ["/og-image.jpg"],
   },
   icons: {
-    icon: "/favicon.ico",
-    apple: "/apple-touch-icon.png",
+    icon: "/lbassur-logo.jpg",
+    apple: "/lbassur-logo.jpg",
   },
 };
 

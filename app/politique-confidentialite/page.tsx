@@ -14,7 +14,7 @@ export default function PolitiqueConfidentialite() {
                     <section>
                         <h2 className="text-xl font-bold text-white uppercase tracking-wider mb-4">Introduction</h2>
                         <p>
-                            Chez LB ASSUR, la protection de vos données personnelles est une priorité. Cette politique détaille comment nous collectons,
+                            Chez LBASSUR, la protection de vos données personnelles est une priorité. Cette politique détaille comment nous collectons,
                             utilisons et protégeons vos informations lors de l'utilisation de notre site.
                         </p>
                     </section>
@@ -47,7 +47,7 @@ export default function PolitiqueConfidentialite() {
                     <section>
                         <h2 className="text-xl font-bold text-white uppercase tracking-wider mb-4">Protection et Conservation</h2>
                         <p>
-                            LB ASSUR met en œuvre toutes les mesures de sécurité nécessaires pour protéger vos données contre tout accès non autorisé.
+                            LBASSUR met en œuvre toutes les mesures de sécurité nécessaires pour protéger vos données contre tout accès non autorisé.
                             Nous conservons vos données uniquement pour la durée nécessaire aux finalités pour lesquelles elles ont été collectées.
                         </p>
                     </section>

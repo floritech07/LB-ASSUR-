@@ -55,7 +55,7 @@ export default function Hero() {
                     transition={{ duration: 0.8, delay: 0.3 }}
                     className="text-6xl md:text-8xl lg:text-9xl font-bold uppercase mb-6 text-white font-oswald drop-shadow-2xl tracking-normal"
                 >
-                    LB ASSUR
+                    LBASSUR
                 </motion.h1>
 
                 <motion.p

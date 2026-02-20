@@ -14,16 +14,16 @@ export default function MentionsLegales() {
                     <section>
                         <h2 className="text-xl font-bold text-white uppercase tracking-wider mb-4">1. Éditeur du Site</h2>
                         <p>
-                            Le présent site est édité par <strong>LB ASSUR</strong>, cabinet de courtage en assurances.<br />
+                            Le présent site est édité par <strong>LBASSUR</strong>, cabinet de courtage en assurances.<br />
                             Siège social : Cotonou, C/ 238 Le Bélier, Bénin.<br />
-                            Responsable de la publication : Direction LB ASSUR.
+                            Responsable de la publication : Direction LBASSUR.
                         </p>
                     </section>
 
                     <section>
                         <h2 className="text-xl font-bold text-white uppercase tracking-wider mb-4">2. Activité de Courtage</h2>
                         <p>
-                            LB ASSUR exerce son activité conformément aux réglementations locales en vigueur sur le courtage en assurances.
+                            LBASSUR exerce son activité conformément aux réglementations locales en vigueur sur le courtage en assurances.
                             Nous intervenons en tant qu'intermédiaire entre nos clients et les compagnies d'assurances pour négocier les meilleurs contrats.
                         </p>
                     </section>
@@ -40,7 +40,7 @@ export default function MentionsLegales() {
                         <h2 className="text-xl font-bold text-white uppercase tracking-wider mb-4">4. Propriété Intellectuelle</h2>
                         <p>
                             L'ensemble des éléments constituant ce site (textes, graphismes, logiciels, photographies, images, logos, etc.)
-                            sont la propriété exclusive de LB ASSUR ou de ses partenaires. Toute reproduction, même partielle, est strictement interdite sans autorisation préalable.
+                            sont la propriété exclusive de LBASSUR ou de ses partenaires. Toute reproduction, même partielle, est strictement interdite sans autorisation préalable.
                         </p>
                     </section>
                 </div>

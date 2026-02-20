@@ -22,7 +22,7 @@ export default function PartnersSection() {
                     whileInView={{ opacity: 1 }}
                     className="text-center mb-16"
                 >
-                    <span className="text-blue-500 font-bold uppercase tracking-[0.3em] text-[10px] mb-4 block">Écosystème LB ASSUR</span>
+                    <span className="text-blue-500 font-bold uppercase tracking-[0.3em] text-[10px] mb-4 block">Écosystème LBASSUR</span>
                     <h2 className="text-3xl md:text-5xl font-bold font-oswald uppercase text-white tracking-tight">
                         Nos Partenaires <span className="text-blue-500">Assureurs</span>
                     </h2>

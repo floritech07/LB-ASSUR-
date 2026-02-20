@@ -4,9 +4,12 @@ export default function Footer() {
     return (
         <footer id="contact" className="bg-black text-white py-20 px-6 border-t border-gray-900">
             <div className="container mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
-                <div>
-                    <h3 className="text-xl font-bold uppercase tracking-widest font-oswald mb-1">LB ASSUR</h3>
-                    <p className="text-gray-500 text-xs uppercase tracking-widest">Courtier en Assurance Multi-spécialiste</p>
+                <div className="flex items-center gap-4">
+                    <img src="/lbassur-logo.jpg" alt="LBASSUR" className="h-12 w-auto object-contain rounded-sm" />
+                    <div>
+                        <h3 className="text-xl font-bold uppercase tracking-widest font-oswald mb-1">LBASSUR</h3>
+                        <p className="text-gray-500 text-xs uppercase tracking-widest">Courtier en Assurance Multi-spécialiste</p>
+                    </div>
                 </div>
 
                 <div className="flex flex-col sm:flex-row gap-6 text-[10px] sm:text-xs text-gray-500 uppercase tracking-[0.2em] text-center sm:text-left font-bold">
@@ -15,7 +18,7 @@ export default function Footer() {
                 </div>
 
                 <div className="text-xs text-gray-600 uppercase tracking-widest">
-                    &copy; {new Date().getFullYear()} LB ASSUR
+                    &copy; {new Date().getFullYear()} LBASSUR
                 </div>
             </div>
 

@@ -246,7 +246,7 @@ export default function BookingSection() {
 
                                             <div className="flex items-center gap-2 mb-6">
                                                 <input required type="checkbox" id="terms" className="accent-blue-500" />
-                                                <label htmlFor="terms" className="text-[10px] text-gray-500">J'accepte que LB ASSUR utilise mes données pour me recontacter.</label>
+                                                <label htmlFor="terms" className="text-[10px] text-gray-500">J'accepte que LBASSUR utilise mes données pour me recontacter.</label>
                                             </div>
 
                                             <div className="flex justify-between pt-8 border-t border-white/5">

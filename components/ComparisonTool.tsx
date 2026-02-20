@@ -195,7 +195,7 @@ export default function ComparisonTool() {
                                             </div>
                                             <div className="text-right">
                                                 <span className="text-3xl font-black text-white">{offer.premium.toLocaleString()} <small className="text-[10px] uppercase text-gray-600">F.CFA</small></span>
-                                                <span className="block text-[8px] uppercase font-bold text-blue-400 mt-1">Économisez 15% avec LB ASSUR</span>
+                                                <span className="block text-[8px] uppercase font-bold text-blue-400 mt-1">Économisez 15% avec LBASSUR</span>
                                             </div>
                                         </div>
 

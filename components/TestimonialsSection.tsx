@@ -7,7 +7,7 @@ const testimonials = [
     {
         name: "Jean-Pierre T.",
         role: "Directeur PME",
-        content: "Grâce à LB ASSUR, nous avons réduit nos primes d'assurance de 20% tout en améliorant nos garanties. Un audit d'une précision remarquable.",
+        content: "Grâce à LBASSUR, nous avons réduit nos primes d'assurance de 20% tout en améliorant nos garanties. Un audit d'une précision remarquable.",
         image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=2070&auto=format&fit=crop"
     },
     {
@@ -19,7 +19,7 @@ const testimonials = [
     {
         name: "Samuel K.",
         role: "Particulier",
-        content: "Enfin un courtier qui prend le temps d'expliquer les clauses complexes. LB ASSUR m'a aidé à choisir la meilleure prévoyance pour ma famille.",
+        content: "Enfin un courtier qui prend le temps d'expliquer les clauses complexes. LBASSUR m'a aidé à choisir la meilleure prévoyance pour ma famille.",
         image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=2070&auto=format&fit=crop"
     }
 ];
