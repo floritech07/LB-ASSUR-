@@ -1,11 +1,14 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
+import ComparisonHomeSection from "@/components/ComparisonHomeSection";
 import FeatureSection from "@/components/FeatureSection";
 import GridSection from "@/components/GridSection";
 import StatsSection from "@/components/StatsSection";
 import PartnersSection from "@/components/PartnersSection";
 import ProcessSection from "@/components/ProcessSection";
-import ContactSection from "@/components/ContactSection";
+import BookingSection from "@/components/BookingSection";
+import GlossarySection from "@/components/GlossarySection";
+import TestimonialsSection from "@/components/TestimonialsSection";
 import Footer from "@/components/Footer";
 
 export default function Home() {
@@ -14,6 +17,7 @@ export default function Home() {
       <Navbar />
 
       <Hero />
+      <ComparisonHomeSection />
 
       <div className="relative z-20 -mt-20 sm:-mt-32">
         <GridSection />
@@ -26,6 +30,7 @@ export default function Home() {
       <StatsSection />
 
       <div id="services">
+        {/* ... existing feature sections ... */}
         <FeatureSection
           title="L’Audit"
           subtitle="Analyse & Expertise"
@@ -59,7 +64,9 @@ export default function Home() {
         />
       </div>
 
-      <ContactSection />
+      <GlossarySection />
+      <BookingSection />
+      <TestimonialsSection />
       <Footer />
     </main>
   );

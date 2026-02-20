@@ -1,9 +1,24 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Mail, MapPin, Phone, Clock } from "lucide-react";
 
 export default function ContactSection() {
+    const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setStatus("loading");
+
+        // Simuler un envoi (remplacer par un vrai appel API plus tard)
+        setTimeout(() => {
+            setStatus("success");
+            // Reset après 5 secondes
+            setTimeout(() => setStatus("idle"), 5000);
+        }, 1500);
+    };
+
     return (
         <section id="contact-section" className="relative py-24 px-6 bg-zinc-950 overflow-hidden">
             {/* Background Decor */}
@@ -35,32 +50,57 @@ export default function ContactSection() {
                         transition={{ duration: 0.8 }}
                         viewport={{ once: true }}
                     >
-                        <form className="space-y-6 bg-white/5 p-8 border border-white/10 backdrop-blur-sm shadow-2xl shadow-black/50">
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div className="space-y-2">
-                                    <label className="text-xs uppercase tracking-widest text-gray-400">Nom Complet</label>
-                                    <input type="text" className="w-full bg-black/50 border-b border-gray-600 focus:border-white px-4 py-3 text-white outline-none transition-colors" placeholder="Votre nom" />
+                        {status === "success" ? (
+                            <motion.div
+                                initial={{ opacity: 0, scale: 0.9 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                className="h-full flex flex-col items-center justify-center bg-white/5 p-12 border border-white/20 text-center"
+                            >
+                                <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mb-6">
+                                    <svg className="w-8 h-8 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7"></path>
+                                    </svg>
                                 </div>
-                                <div className="space-y-2">
-                                    <label className="text-xs uppercase tracking-widest text-gray-400">Email</label>
-                                    <input type="email" className="w-full bg-black/50 border-b border-gray-600 focus:border-white px-4 py-3 text-white outline-none transition-colors" placeholder="email@exemple.com" />
+                                <h3 className="text-2xl font-bold uppercase font-oswald mb-2 text-white">Message Envoyé !</h3>
+                                <p className="text-gray-400">Merci de votre confiance. Notre équipe vous recontactera très prochainement.</p>
+                            </motion.div>
+                        ) : (
+                            <form onSubmit={handleSubmit} className="space-y-6 bg-white/5 p-8 border border-white/10 backdrop-blur-sm shadow-2xl shadow-black/50">
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div className="space-y-2">
+                                        <label className="text-xs uppercase tracking-widest text-gray-400">Nom Complet</label>
+                                        <input required type="text" className="w-full bg-black/50 border-b border-gray-600 focus:border-white px-4 py-3 text-white outline-none transition-colors" placeholder="Votre nom" />
+                                    </div>
+                                    <div className="space-y-2">
+                                        <label className="text-xs uppercase tracking-widest text-gray-400">Email</label>
+                                        <input required type="email" className="w-full bg-black/50 border-b border-gray-600 focus:border-white px-4 py-3 text-white outline-none transition-colors" placeholder="email@exemple.com" />
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div className="space-y-2">
-                                <label className="text-xs uppercase tracking-widest text-gray-400">Sujet</label>
-                                <input type="text" className="w-full bg-black/50 border-b border-gray-600 focus:border-white px-4 py-3 text-white outline-none transition-colors" placeholder="Demande de devis..." />
-                            </div>
+                                <div className="space-y-2">
+                                    <label className="text-xs uppercase tracking-widest text-gray-400">Sujet</label>
+                                    <input required type="text" className="w-full bg-black/50 border-b border-gray-600 focus:border-white px-4 py-3 text-white outline-none transition-colors" placeholder="Demande de devis..." />
+                                </div>
 
-                            <div className="space-y-2">
-                                <label className="text-xs uppercase tracking-widest text-gray-400">Message</label>
-                                <textarea rows={4} className="w-full bg-black/50 border-b border-gray-600 focus:border-white px-4 py-3 text-white outline-none transition-colors resize-none" placeholder="Comment pouvons-nous vous aider ?"></textarea>
-                            </div>
+                                <div className="space-y-2">
+                                    <label className="text-xs uppercase tracking-widest text-gray-400">Message</label>
+                                    <textarea required rows={4} className="w-full bg-black/50 border-b border-gray-600 focus:border-white px-4 py-3 text-white outline-none transition-colors resize-none" placeholder="Comment pouvons-nous vous aider ?"></textarea>
+                                </div>
 
-                            <button type="button" className="w-full bg-white text-black py-4 uppercase tracking-widest font-bold text-sm hover:bg-gray-200 transition-colors">
-                                Envoyer le message
-                            </button>
-                        </form>
+                                <button
+                                    disabled={status === "loading"}
+                                    type="submit"
+                                    className="w-full bg-white text-black py-4 uppercase tracking-widest font-bold text-sm hover:bg-gray-200 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                                >
+                                    {status === "loading" ? (
+                                        <>
+                                            <span className="w-4 h-4 border-2 border-black/30 border-t-black rounded-full animate-spin"></span>
+                                            Envoi en cours...
+                                        </>
+                                    ) : "Envoyer le message"}
+                                </button>
+                            </form>
+                        )}
                     </motion.div>
 
                     {/* Info Side */}

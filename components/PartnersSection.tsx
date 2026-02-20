@@ -3,57 +3,60 @@
 import { motion } from "framer-motion";
 
 const partners = [
-    "AXA", "ALLIANZ", "NSIA", "SUNU", "SANLAM", "ATLANTIQUE", "GNA", "SAHAM"
+    { name: "SUNU Assurances", logo: "/logo_assurance/sunu_assurance.png" },
+    { name: "NSIA Assurances", logo: "/logo_assurance/nsia-assurance.png" },
+    { name: "Sanlam Allianz", logo: "/logo_assurance/sanlam-allianz.png" },
+    { name: "AFG Assurances", logo: "/logo_assurance/afg-assurances.png" },
+    { name: "Africaine des Assurances", logo: "/logo_assurance/africaine-assurance.png" },
+    { name: "GAB Assurances", logo: "/logo_assurance/gab.png" },
+    { name: "CIF Assurances Vie", logo: "/logo_assurance/cif_assurances_vie.png" },
+    { name: "Nobila Assurances", logo: "/logo_assurance/nobila-assurance.png" }
 ];
 
 export default function PartnersSection() {
     return (
-        <section className="bg-zinc-950 py-24 relative overflow-hidden">
-            {/* Mesh Gradient Background */}
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-white/5 via-black to-black opacity-50" />
-
+        <section className="bg-black py-24 relative overflow-hidden border-y border-white/5">
             <div className="container mx-auto px-6 relative z-10">
                 <motion.div
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
-                    className="text-center mb-12"
+                    className="text-center mb-16"
                 >
-                    <p className="text-sm uppercase tracking-[0.3em] text-gray-500 font-bold mb-8">Ils nous font confiance</p>
+                    <span className="text-blue-500 font-bold uppercase tracking-[0.3em] text-[10px] mb-4 block">Écosystème LB ASSUR</span>
+                    <h2 className="text-3xl md:text-5xl font-bold font-oswald uppercase text-white tracking-tight">
+                        Nos Partenaires <span className="text-blue-500">Assureurs</span>
+                    </h2>
+                    <div className="h-1 w-16 bg-blue-500 mx-auto mt-8 shadow-[0_0_15px_rgba(59,130,246,0.5)]"></div>
                 </motion.div>
 
-                <div className="flex flex-wrap justify-center gap-6">
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 md:gap-8 items-center justify-items-center">
                     {partners.map((partner, index) => (
                         <motion.div
                             key={index}
                             initial={{ opacity: 0, scale: 0.9 }}
                             whileInView={{ opacity: 1, scale: 1 }}
-                            transition={{ duration: 0.5, delay: index * 0.1 }}
+                            transition={{ duration: 0.6, delay: index * 0.1 }}
                             viewport={{ once: true }}
-                            whileHover={{ scale: 1.05 }}
-                            className="group relative cursor-default"
+                            title={partner.name}
+                            className="w-full h-32 md:h-40 flex items-center justify-center p-8 bg-zinc-900/30 border border-white/5 hover:border-blue-500/30 transition-all duration-500 hover:bg-zinc-900/50 group rounded-sm"
                         >
-                            {/* Glass Tile */}
-                            <div className="px-10 py-6 bg-white/5 backdrop-blur-md border border-white/5 rounded-lg shadow-lg hover:shadow-white/5 hover:bg-white/10 transition-all duration-300">
-                                <span className="text-xl md:text-2xl font-bold font-oswald text-gray-400 group-hover:text-white transition-colors duration-300 uppercase tracking-widest drop-shadow-sm">
-                                    {partner}
-                                </span>
-
-                                {/* Shine Effect */}
-                                <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:animate-shine pointer-events-none" />
-                            </div>
+                            <img
+                                src={partner.logo}
+                                alt={partner.name}
+                                style={{ filter: 'none', WebkitFilter: 'none' }}
+                                className="h-full w-full object-contain filter-none brightness-100 contrast-100 grayscale-0"
+                                onError={(e) => {
+                                    (e.target as HTMLImageElement).src = `https://ui-avatars.com/api/?name=${partner.name}&background=0ea5e9&color=fff&bold=true&length=2&size=128`;
+                                }}
+                            />
                         </motion.div>
                     ))}
                 </div>
             </div>
 
-            <style jsx global>{`
-        @keyframes shine {
-          100% { transform: translateX(100%); }
-        }
-        .group:hover .animate-shine {
-          animation: shine 1.5s;
-        }
-      `}</style>
+            {/* Ambient Background Glows */}
+            <div className="absolute top-0 left-0 w-96 h-96 bg-blue-600/5 rounded-full blur-[150px] -z-0"></div>
+            <div className="absolute bottom-0 right-0 w-96 h-96 bg-blue-600/10 rounded-full blur-[150px] -z-0"></div>
         </section>
     );
 }
