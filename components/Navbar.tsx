@@ -7,11 +7,11 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const navLinks = [
     { name: "Accueil", href: "/" },
-    { name: "Comparer", href: "/compare" },
-    { name: "Simulation", href: "/simulation" },
+    { name: "Comparer", href: "/#compare" },
     { name: "Services", href: "/#services" },
-    { name: "Glossaire", href: "/education" },
+    { name: "Glossaire", href: "/#glossaire" },
     { name: "Contact", href: "/#booking" },
+    { name: "Simulation", href: "/simulation" },
 ];
 
 export default function Navbar() {
@@ -55,7 +55,7 @@ export default function Navbar() {
 
                     {/* External CTA "Prendre RDV" */}
                     <Link
-                        href="#booking"
+                        href="/#booking"
                         className="text-xs uppercase tracking-[0.15em] font-bold text-white border border-white px-5 py-2 hover:bg-white hover:text-black transition-all duration-300"
                     >
                         Prendre Rendez-vous
@@ -101,7 +101,7 @@ export default function Navbar() {
                             ))}
 
                             <Link
-                                href="#booking"
+                                href="/#booking"
                                 onClick={() => setIsMobileMenuOpen(false)}
                                 className="text-xl uppercase tracking-widest font-bold text-white border border-white px-8 py-3 hover:bg-white hover:text-black transition-all duration-300 mt-4"
                             >

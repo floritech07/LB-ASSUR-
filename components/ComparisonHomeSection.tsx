@@ -6,7 +6,7 @@ import Link from "next/link";
 
 export default function ComparisonHomeSection() {
     return (
-        <section className="py-24 bg-black text-white overflow-hidden relative">
+        <section id="compare" className="py-24 bg-black text-white overflow-hidden relative">
             <div className="container mx-auto px-6">
                 <div className="flex flex-col lg:flex-row items-center gap-16">
                     <motion.div
