@@ -42,7 +42,11 @@ export const metadata: Metadata = {
     images: ["/og-image.jpg"],
   },
   icons: {
-    icon: "/lbassur-logo.jpg",
+    icon: [
+      { url: "/lbassur-logo.jpg" },
+      { url: "/lbassur-logo.jpg", type: "image/jpeg" },
+    ],
+    shortcut: "/lbassur-logo.jpg",
     apple: "/lbassur-logo.jpg",
   },
 };
