@@ -35,7 +35,7 @@ export default function Navbar() {
             <div className="container mx-auto px-6 flex justify-between items-center max-w-7xl">
                 {/* Logo - Pure Text per SpaceX Style */}
                 <Link href="/" className="group relative z-30">
-                    <h1 className="text-3xl md:text-3xl font-bold tracking-tighter uppercase font-oswald text-white">
+                    <h1 className="text-3xl md:text-3xl font-bold uppercase font-oswald text-white tracking-tight">
                         LB ASSUR
                     </h1>
                 </Link>

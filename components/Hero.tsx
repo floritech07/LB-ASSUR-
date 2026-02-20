@@ -53,7 +53,7 @@ export default function Hero() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.3 }}
-                    className="text-6xl md:text-8xl lg:text-9xl font-bold uppercase tracking-tighter mb-6 text-white font-oswald drop-shadow-2xl"
+                    className="text-6xl md:text-8xl lg:text-9xl font-bold uppercase mb-6 text-white font-oswald drop-shadow-2xl tracking-normal"
                 >
                     LB ASSUR
                 </motion.h1>
