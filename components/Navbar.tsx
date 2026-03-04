@@ -35,7 +35,7 @@ export default function Navbar() {
             <div className="container mx-auto px-6 flex justify-between items-center max-w-7xl">
                 {/* Logo - Pure Text per SpaceX Style */}
                 <Link href="/" className="group relative z-30 flex items-center gap-3">
-                    <img src="/lbassur-logo.jpg" alt="LBASSUR" className="h-10 md:h-12 w-auto object-contain rounded-sm" />
+                    <img src="/images/logo.jpg" alt="LBASSUR" className="h-10 md:h-12 w-auto object-contain rounded-sm" />
                     <span className="text-2xl font-bold uppercase font-oswald text-white tracking-tight hidden sm:block">
                         LBASSUR
                     </span>

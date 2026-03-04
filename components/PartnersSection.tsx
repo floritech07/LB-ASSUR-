@@ -3,14 +3,14 @@
 import { motion } from "framer-motion";
 
 const partners = [
-    { name: "SUNU Assurances", logo: "/logo_assurance/sunu_assurance.png" },
-    { name: "NSIA Assurances", logo: "/logo_assurance/nsia-assurance.png" },
-    { name: "Sanlam Allianz", logo: "/logo_assurance/sanlam-allianz.png" },
-    { name: "AFG Assurances", logo: "/logo_assurance/afg-assurances.png" },
-    { name: "Africaine des Assurances", logo: "/logo_assurance/africaine-assurance.png" },
-    { name: "GAB Assurances", logo: "/logo_assurance/gab.png" },
-    { name: "CIF Assurances Vie", logo: "/logo_assurance/cif_assurances_vie.png" },
-    { name: "Nobila Assurances", logo: "/logo_assurance/nobila-assurance.png" }
+    { name: "SUNU Assurances", logo: "/images/partners/sunu_assurance.png" },
+    { name: "NSIA Assurances", logo: "/images/partners/nsia-assurance.png" },
+    { name: "Sanlam Allianz", logo: "/images/partners/sanlam-allianz.png" },
+    { name: "AFG Assurances", logo: "/images/partners/afg-assurances.png" },
+    { name: "Africaine des Assurances", logo: "/images/partners/africaine-assurance.png" },
+    { name: "GAB Assurances", logo: "/images/partners/gab.png" },
+    { name: "CIF Assurances Vie", logo: "/images/partners/cif_assurances_vie.png" },
+    { name: "Nobila Assurances", logo: "/images/partners/nobila-assurance.png" }
 ];
 
 export default function PartnersSection() {

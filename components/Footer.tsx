@@ -5,7 +5,7 @@ export default function Footer() {
         <footer id="contact" className="bg-black text-white py-20 px-6 border-t border-gray-900">
             <div className="container mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
                 <div className="flex items-center gap-4">
-                    <img src="/lbassur-logo.jpg" alt="LBASSUR" className="h-12 w-auto object-contain rounded-sm" />
+                    <img src="/images/logo.jpg" alt="LBASSUR" className="h-12 w-auto object-contain rounded-sm" />
                     <div>
                         <h3 className="text-xl font-bold uppercase tracking-widest font-oswald mb-1">LBASSUR</h3>
                         <p className="text-gray-500 text-xs uppercase tracking-widest">Courtier en Assurance Multi-spécialiste</p>

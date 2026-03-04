@@ -14,7 +14,7 @@ export default function StatsSection() {
         <section className="relative py-24 px-6 overflow-hidden">
             {/* Background with Stars/Space feel */}
             <div className="absolute inset-0 bg-black z-0">
-                <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1534796636912-3b95b3ab5980?q=80&w=2072&auto=format&fit=crop')] bg-cover bg-center opacity-20" />
+                <div className="absolute inset-0 bg-[url('/images/stats-bg.jpg')] bg-cover bg-center opacity-20" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black" />
             </div>
 

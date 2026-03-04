@@ -5,9 +5,11 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ArrowDown, ChevronRight } from "lucide-react";
 
 const heroImages = [
-    "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop", // Tech/Space feel
-    "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop", // City/Business
-    "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=2070&auto=format&fit=crop", // Meeting/People
+    "/images/hero-1.png",
+    "/images/hero-2.jpg",
+    "/images/hero-3.jpg",
+    "/images/hero-4.jpg",
+    "/images/hero-5.jpg",
 ];
 
 export default function Hero() {

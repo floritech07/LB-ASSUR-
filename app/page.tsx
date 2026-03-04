@@ -35,7 +35,7 @@ export default function Home() {
           title="L’Audit"
           subtitle="Analyse & Expertise"
           description="Étude approfondie de vos risques et de vos contrats en cours pour identifier clairement les éventuels vides ou insuffisances de couverture. Nous garantissons une analyse précise pour une protection optimale."
-          backgroundImage="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=2070&auto=format&fit=crop"
+          backgroundImage="/images/img-1.jpg"
           align="left"
         />
 
@@ -43,7 +43,7 @@ export default function Home() {
           title="L’Assurance"
           subtitle="Solutions Sur Mesure"
           description="Nous offrons un panorama représentatif des meilleurs contrats du marché, sélectionnés par nos soins pour tous types de risques. Simplifiez votre processus d'assurance avec nos solutions adaptées."
-          backgroundImage="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=2070&auto=format&fit=crop"
+          backgroundImage="/images/img-2.jpg"
           align="right"
         />
 
@@ -51,7 +51,7 @@ export default function Home() {
           title="Conseil & Accompagnement"
           subtitle="Support Continu"
           description="LBASSUR et son équipe vous apportent conseil, écoute et accompagnement durant toute la durée de votre contrat. Une réelle prise en compte de chaque assuré pour suivre l’évolution des risques."
-          backgroundImage="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2070&auto=format&fit=crop"
+          backgroundImage="/images/img-3.jpg"
           align="left"
         />
 
@@ -59,7 +59,7 @@ export default function Home() {
           title="Indemnisation Rapide"
           subtitle="Engagement Qualité"
           description="En cas de sinistre, comptez sur nous pour une indemnisation rapide et équitable. Nous prenons en charge toutes les démarches administratives pour garantir votre tranquillité d'esprit."
-          backgroundImage="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=2664&auto=format&fit=crop"
+          backgroundImage="/images/img-4.jpg"
           align="right"
         />
       </div>
