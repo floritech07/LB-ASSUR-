@@ -9,7 +9,7 @@ interface FeatureSectionProps {
     title: string;
     subtitle: string;
     description: string;
-    backgroundImage: string;
+    backgroundClass: string;
     align?: "left" | "right" | "center";
 }
 
@@ -17,7 +17,7 @@ export default function FeatureSection({
     title,
     subtitle,
     description,
-    backgroundImage,
+    backgroundClass,
     align = "left",
 }: FeatureSectionProps) {
     const ref = useRef(null);
@@ -36,8 +36,7 @@ export default function FeatureSection({
                 className="absolute inset-0 z-0 overflow-hidden"
             >
                 <div
-                    className="absolute inset-0 bg-cover bg-center transition-transform duration-[3s] ease-in-out scale-100 group-hover:scale-110"
-                    style={{ backgroundImage: `url(${backgroundImage})` }}
+                    className={`absolute inset-0 transition-transform duration-[3s] ease-in-out scale-100 group-hover:scale-105 ${backgroundClass}`}
                 />
             </div>
 

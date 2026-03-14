@@ -35,7 +35,7 @@ export default function Home() {
           title="L’Audit"
           subtitle="Analyse & Expertise"
           description="Étude approfondie de vos risques et de vos contrats en cours pour identifier clairement les éventuels vides ou insuffisances de couverture. Nous garantissons une analyse précise pour une protection optimale."
-          backgroundImage="/images/img-1.jpg"
+          backgroundClass="bg-gradient-to-br from-blue-900 via-indigo-950 to-black"
           align="left"
         />
 
@@ -43,7 +43,7 @@ export default function Home() {
           title="L’Assurance"
           subtitle="Solutions Sur Mesure"
           description="Nous offrons un panorama représentatif des meilleurs contrats du marché, sélectionnés par nos soins pour tous types de risques. Simplifiez votre processus d'assurance avec nos solutions adaptées."
-          backgroundImage="/images/img-2.jpg"
+          backgroundClass="bg-gradient-to-tr from-emerald-950 via-teal-900 to-black"
           align="right"
         />
 
@@ -51,7 +51,7 @@ export default function Home() {
           title="Conseil & Accompagnement"
           subtitle="Support Continu"
           description="LBASSUR et son équipe vous apportent conseil, écoute et accompagnement durant toute la durée de votre contrat. Une réelle prise en compte de chaque assuré pour suivre l’évolution des risques."
-          backgroundImage="/images/img-3.jpg"
+          backgroundClass="bg-gradient-to-bl from-violet-950 via-purple-900 to-black"
           align="left"
         />
 
@@ -59,7 +59,7 @@ export default function Home() {
           title="Indemnisation Rapide"
           subtitle="Engagement Qualité"
           description="En cas de sinistre, comptez sur nous pour une indemnisation rapide et équitable. Nous prenons en charge toutes les démarches administratives pour garantir votre tranquillité d'esprit."
-          backgroundImage="/images/img-4.jpg"
+          backgroundClass="bg-gradient-to-tl from-slate-900 via-gray-900 to-black"
           align="right"
         />
       </div>

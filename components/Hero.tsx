@@ -4,12 +4,11 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowDown, ChevronRight } from "lucide-react";
 
-const heroImages = [
-    "/images/hero-1.png",
-    "/images/hero-2.jpg",
-    "/images/hero-3.jpg",
-    "/images/hero-4.jpg",
-    "/images/hero-5.jpg",
+const heroGradients = [
+    "bg-gradient-to-br from-blue-950 via-black to-slate-900",
+    "bg-gradient-to-tr from-indigo-950 via-black to-blue-900",
+    "bg-gradient-to-bl from-slate-900 via-black to-indigo-950",
+    "bg-gradient-to-tl from-blue-900 via-black to-slate-900",
 ];
 
 export default function Hero() {
@@ -17,7 +16,7 @@ export default function Hero() {
 
     useEffect(() => {
         const timer = setInterval(() => {
-            setCurrentImage((prev) => (prev + 1) % heroImages.length);
+            setCurrentImage((prev) => (prev + 1) % heroGradients.length);
         }, 5000);
         return () => clearInterval(timer);
     }, []);
@@ -32,8 +31,7 @@ export default function Hero() {
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0 }}
                     transition={{ duration: 1.5 }}
-                    className="absolute inset-0 z-0 bg-cover bg-center"
-                    style={{ backgroundImage: `url(${heroImages[currentImage]})` }}
+                    className={`absolute inset-0 z-0 ${heroGradients[currentImage]}`}
                 >
                     <div className="absolute inset-0 bg-black/50" /> {/* Overlay */}
                 </motion.div>
