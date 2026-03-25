@@ -10,10 +10,11 @@ export const metadata: Metadata = {
 
 export default function ComparePage() {
     return (
-        <main className="bg-white">
+        <main className="bg-black min-h-screen">
             <Navbar />
             <ComparisonTool />
             <Footer />
         </main>
     );
 }
+

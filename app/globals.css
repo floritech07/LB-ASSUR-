@@ -1,36 +1,42 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #000000;
+  --foreground: #ffffff;
+  --accent: #3b82f6; /* Electric Blue Tesla */
+  --glass: rgba(255, 255, 255, 0.05);
+  --glass-border: rgba(255, 255, 255, 0.1);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-accent: var(--accent);
   --font-sans: var(--font-inter), sans-serif;
   --font-oswald: var(--font-oswald), sans-serif;
   --font-mono: monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-inter), sans-serif;
   overflow-x: hidden;
-  /* Prevent horizontal scroll from full-width elements */
+  selection-background: var(--accent);
+  selection-color: white;
 }
 
-/* Custom scrollbar to match premium feel */
+/* Custom scrollbar - Tesla/Apple Style */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 10px;
 }
 
 ::-webkit-scrollbar-track {
@@ -38,16 +44,42 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #333;
-  border-radius: 4px;
+  background: #222;
+  border-radius: 5px;
+  border: 2px solid #000;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #555;
+  background: #333;
 }
 
+/* Selection */
+::selection {
+  background: rgba(59, 130, 246, 0.3);
+  color: white;
+}
+
+/* Glassmorphism Utilities */
 @layer utilities {
+  .glass {
+    background: var(--glass);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+  }
+
   .text-balance {
     text-wrap: balance;
   }
+
+  .text-gradient {
+    background: linear-gradient(to right, #fff, #999);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
+
+/* Smooth Transitions for all interactive elements */
+a, button {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }

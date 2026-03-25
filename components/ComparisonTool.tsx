@@ -37,17 +37,17 @@ const CATEGORIES: CategoryDef[] = [
     },
     {
         id: "PERSONNES",
-        label: "Santé & Prévoyance",
-        labelShort: "Personnes",
-        description: "Couvre votre intégrité physique, vos frais de santé et vos voyages.",
+        label: "Santé & Vie",
+        labelShort: "Santé",
+        description: "Couvre votre intégrité physique, vos frais de santé et vos projets de vie.",
         color: "emerald",
         colorDark: "emerald-600",
         badge: "bg-emerald-600",
     },
     {
         id: "VIE",
-        label: "Vie & Épargne",
-        labelShort: "Vie",
+        label: "Épargne & Retraite",
+        labelShort: "Épargne",
         description: "Constitution de capital, protection financière longue durée et prévoyance familiale.",
         color: "violet",
         colorDark: "violet-600",
@@ -95,112 +95,109 @@ function OfferCard({ offer, index }: { offer: InsuranceOffer; index: number }) {
             key={offer.id}
             layout
             initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0, transition: { delay: index * 0.05 } }}
+            animate={{ opacity: 1, x: 0, transition: { delay: index * 0.05, duration: 0.6 } }}
             exit={{ opacity: 0, scale: 0.95 }}
-            className={`bg-zinc-900/30 border border-white/5 flex flex-col md:flex-row hover:shadow-2xl hover:${colors.border} transition-all group overflow-hidden`}
+            className={`glass border-white/5 flex flex-col md:flex-row hover:border-blue-500/20 transition-all duration-700 group overflow-hidden relative shadow-2xl`}
         >
+            {/* Background Accent */}
+            <div className={`absolute top-0 right-0 w-32 h-32 ${colors.accent.replace('text', 'bg')} opacity-0 blur-[80px] group-hover:opacity-10 transition-opacity duration-1000`}></div>
+
             {/* Insurer Panel */}
-            <div className="p-6 md:w-44 bg-white/5 flex flex-col items-center justify-center border-b md:border-b-0 md:border-r border-white/5 gap-3">
-                <div className={`w-14 h-14 bg-black border border-white/10 rounded-full flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform ${colors.border}`}>
-                    <IconComp size={22} className={colors.accent} />
+            <div className="p-8 md:w-52 bg-white/[0.02] flex flex-col items-center justify-center border-b md:border-b-0 md:border-r border-white/5 gap-4 relative z-10">
+                <div className={`w-20 h-20 bg-black/40 border border-white/5 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-700 ${colors.border}`}>
+                    <IconComp size={32} className={colors.accent} />
                 </div>
-                <span className="text-[10px] font-black uppercase tracking-tighter text-white text-center leading-tight">
-                    {offer.insurer}
-                </span>
-                <div className={`flex gap-0.5 ${colors.accent}`}>
-                    {[...Array(5)].map((_, i) => (
-                        <Star key={i} size={9} fill={i < Math.floor(offer.rating) ? "currentColor" : "none"} className={i < Math.floor(offer.rating) ? "" : "text-gray-800"} />
-                    ))}
+                <div className="text-center">
+                    <span className="text-[11px] font-black uppercase tracking-widest text-white block mb-1">
+                        {offer.insurer}
+                    </span>
+                    <div className={`flex gap-0.5 justify-center ${colors.accent}`}>
+                        {[...Array(5)].map((_, i) => (
+                            <Star key={i} size={10} fill={i < Math.floor(offer.rating) ? "currentColor" : "none"} className={i < Math.floor(offer.rating) ? "" : "text-gray-800"} />
+                        ))}
+                    </div>
                 </div>
                 {offer.isMandatory && (
-                    <span className="text-[8px] font-black uppercase tracking-wider px-2 py-0.5 bg-amber-500/20 text-amber-400 border border-amber-500/30 rounded-full">
-                        Obligatoire
+                    <span className="text-[8px] font-black uppercase tracking-[0.2em] px-3 py-1 bg-blue-500/10 text-blue-400 border border-blue-500/20 rounded-full">
+                        Premium
                     </span>
                 )}
             </div>
 
             {/* Main Info */}
-            <div className="p-6 flex-1">
-                <div className="flex justify-between items-start mb-4 flex-wrap gap-2">
+            <div className="p-8 flex-1 relative z-10">
+                <div className="flex justify-between items-start mb-8 flex-wrap gap-4">
                     <div>
-                        <div className="flex items-center gap-2 mb-1 flex-wrap">
+                        <div className="flex items-center gap-3 mb-3 flex-wrap">
                             {offer.tag && (
-                                <span className={`${colors.bg} text-white text-[8px] font-black uppercase px-2 py-0.5 rounded-sm`}>
+                                <span className={`bg-white text-black text-[9px] font-black uppercase px-3 py-1 tracking-widest`}>
                                     {offer.tag}
                                 </span>
                             )}
                             {offer.insuranceSubType && (
-                                <span className="text-[9px] font-bold text-gray-600 uppercase tracking-widest">
+                                <span className="text-[10px] font-bold text-gray-600 uppercase tracking-[0.3em]">
                                     {offer.insuranceSubType}
                                 </span>
                             )}
                         </div>
-                        <h3 className="text-base font-bold uppercase font-oswald text-white leading-tight">
+                        <h3 className="text-3xl font-bold uppercase font-oswald text-white leading-none tracking-tight">
                             {offer.insuranceType}
                         </h3>
                     </div>
                     <div className="text-right">
-                        <span className="text-2xl font-black text-white">
-                            {offer.premium.toLocaleString()}
-                            <small className="text-[9px] uppercase text-gray-600 font-bold ml-1">F.CFA</small>
-                        </span>
-                        <span className="block text-[8px] uppercase font-bold text-gray-600 mt-0.5">
-                            {offer.category === "VIE" ? "/ mois" : "/ an"}
-                        </span>
-                        {offer.rate && (
-                            <span className={`block text-[9px] font-black ${colors.accent} mt-1`}>
-                                Taux garanti {offer.rate}%
+                        <div className="flex items-baseline justify-end gap-2">
+                            <span className="text-4xl font-black text-white tabular-nums">
+                                {offer.premium.toLocaleString()}
                             </span>
-                        )}
+                            <small className="text-[10px] uppercase text-blue-500 font-bold tracking-widest">F.CFA</small>
+                        </div>
+                        <span className="block text-[9px] uppercase font-bold text-gray-700 tracking-widest mt-1">
+                            {offer.category === "VIE" ? "Abonnement Mensuel" : "Prime Annuelle"}
+                        </span>
                     </div>
                 </div>
 
-                {/* Key Stats */}
-                <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 py-4 border-y border-white/5 mb-4">
+                {/* Key Stats - Tesla HUD Style */}
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 py-6 border-y border-white/5 mb-6">
                     <div>
-                        <span className="block text-[8px] font-bold text-gray-600 uppercase mb-0.5">Couverture</span>
-                        <span className="text-xs font-black text-white">{(offer.coverageAmount / 1000000).toFixed(1)}M F</span>
+                        <span className="block text-[9px] font-bold text-gray-700 uppercase tracking-widest mb-2">Garanties</span>
+                        <span className="text-sm font-black text-white">{(offer.coverageAmount / 1000000).toFixed(1)}M <small className="text-gray-600">FCFA</small></span>
                     </div>
                     <div>
-                        <span className="block text-[8px] font-bold text-gray-600 uppercase mb-0.5">Franchise</span>
-                        <span className="text-xs font-black text-white">{offer.franchise > 0 ? `${offer.franchise.toLocaleString()} F` : "Aucune"}</span>
+                        <span className="block text-[9px] font-bold text-gray-700 uppercase tracking-widest mb-2">Franchise</span>
+                        <span className="text-sm font-black text-white">{offer.franchise > 0 ? `${offer.franchise.toLocaleString()} F` : "0 F"}</span>
                     </div>
                     <div>
-                        <span className="block text-[8px] font-bold text-gray-600 uppercase mb-0.5">Carence</span>
-                        <span className="text-xs font-black text-white">{offer.waitingPeriod}</span>
+                        <span className="block text-[9px] font-bold text-gray-700 uppercase tracking-widest mb-2">Délai</span>
+                        <span className="text-sm font-black text-white">{offer.waitingPeriod}</span>
                     </div>
                     <div>
-                        <span className="block text-[8px] font-bold text-gray-600 uppercase mb-0.5">Durée</span>
-                        <span className="text-xs font-black text-white">{offer.duration}</span>
+                        <span className="block text-[9px] font-bold text-gray-700 uppercase tracking-widest mb-2">Validité</span>
+                        <span className="text-sm font-black text-white">{offer.duration}</span>
                     </div>
                 </div>
 
                 {/* Guarantees */}
-                <div className="flex flex-wrap gap-1.5">
+                <div className="flex flex-wrap gap-2">
                     {offer.guarantees.map(g => (
-                        <div key={g} className={`flex items-center gap-1 bg-white/5 border border-white/5 px-2 py-0.5 rounded-full hover:${colors.border} transition-colors`}>
-                            <CheckIcon size={8} className={colors.accent} />
-                            <span className="text-[8px] font-bold uppercase text-gray-500">{g}</span>
-                        </div>
-                    ))}
-                    {offer.optionalGuarantees.slice(0, 2).map(g => (
-                        <div key={g} className="flex items-center gap-1 bg-white/3 border border-dashed border-white/5 px-2 py-0.5 rounded-full">
-                            <span className="text-[8px] font-bold uppercase text-gray-700">+ {g}</span>
+                        <div key={g} className={`flex items-center gap-2 bg-white/[0.03] border border-white/5 px-3 py-1 rounded-full group-hover:border-blue-500/20 transition-colors duration-700`}>
+                            <div className="w-1.5 h-1.5 bg-blue-500/40 rounded-full"></div>
+                            <span className="text-[9px] font-bold uppercase text-gray-500 tracking-wider font-inter">{g}</span>
                         </div>
                     ))}
                 </div>
             </div>
 
             {/* CTA Panel */}
-            <div className="p-6 md:w-48 bg-white/5 flex flex-col justify-center gap-2 md:border-l border-white/5">
-                <Link href={`/assureur/${offer.insurerSlug}`} className={`w-full ${colors.bg} text-white py-3 text-[9px] font-black uppercase tracking-[0.15em] hover:opacity-90 transition-opacity flex items-center justify-center gap-2 shadow-lg ${colors.glow}`}>
-                    Voir l&apos;offre <ChevronRight size={12} />
+            <div className="p-8 md:w-60 bg-white/[0.03] flex flex-col justify-center gap-3 md:border-l border-white/5 relative z-10">
+                <Link href={`/assureur/${offer.insurerSlug}`} className={`w-full bg-blue-600 text-white py-4 text-[10px] font-black uppercase tracking-[0.2em] hover:bg-blue-500 transition-all duration-700 flex items-center justify-center gap-2 shadow-xl shadow-blue-500/20`}>
+                    Détails <ChevronRight size={14} />
                 </Link>
-                <Link href="/simulation" className="w-full border border-white/10 flex items-center justify-center text-center bg-transparent text-white py-3 text-[9px] font-bold uppercase tracking-[0.15em] hover:border-white transition-colors">
-                    Simuler le prix
+                <Link href="/simulation" className="w-full border border-white/5 bg-white/[0.02] flex items-center justify-center text-center text-gray-500 py-4 text-[10px] font-bold uppercase tracking-[0.2em] hover:text-white hover:border-white/20 transition-all duration-700">
+                    Souscrire
                 </Link>
-                <p className="text-[8px] text-gray-700 text-center font-light leading-tight mt-1">
-                    {offer.terms.slice(0, 60)}...
+                <p className="text-[8px] text-gray-800 text-center font-medium uppercase tracking-widest leading-none mt-2">
+                    Conditions Appliquées
                 </p>
             </div>
         </motion.div>
@@ -224,7 +221,7 @@ export default function ComparisonTool() {
             const categoryMatch = offer.category === activeCategory;
             const typeMatch = selectedType === "Tous" || offer.insuranceType === selectedType;
             const budgetMatch = activeCategory === "VIE"
-                ? true // no budget filter for Vie (monthly premiums)
+                ? true // no budget filter for Vie
                 : offer.premium <= budget;
             const searchMatch =
                 offer.insurer.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -245,26 +242,29 @@ export default function ComparisonTool() {
     };
 
     return (
-        <div className="min-h-screen bg-black pb-24 text-white">
+        <div className="min-h-screen bg-black pb-32 text-white relative">
+            {/* Background Texture */}
+            <div className="absolute inset-0 z-0 opacity-[0.02] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
 
             {/* ── Hero Header ─────────────────────────────────────────────────── */}
-            <div className="bg-zinc-950 pt-32 pb-20 px-6 border-b border-white/5">
-                <div className="container mx-auto max-w-6xl">
-                    <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }}>
-                        <span className={`text-[10px] font-black uppercase tracking-[0.3em] ${colors.accent} mb-3 block`}>
-                            Comparateur National · Bénin
+            <div className="bg-zinc-950 pt-44 pb-24 px-6 border-b border-white/5 relative overflow-hidden">
+                <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-blue-500/[0.02] to-transparent"></div>
+                
+                <div className="container mx-auto max-w-7xl relative z-10">
+                    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
+                        <span className={`text-[11px] font-black uppercase tracking-[0.4em] ${colors.accent} mb-4 block`}>
+                            Système de Comparaison · Hub National
                         </span>
-                        <h1 className="text-4xl md:text-5xl font-bold font-oswald text-white mb-4 uppercase tracking-tight">
-                            Trouvez la Meilleure Offre{" "}
-                            <span className={colors.accent}>en 1 Clic</span>
+                        <h1 className="text-5xl md:text-7xl font-bold font-oswald text-white mb-6 uppercase tracking-tighter">
+                            Trouvez <span className="text-gradient">l&apos;Excellence</span>
                         </h1>
-                        <p className="text-gray-500 text-sm mb-8 max-w-2xl font-light">
+                        <p className="text-gray-500 text-lg mb-12 max-w-2xl font-light leading-relaxed">
                             {currentCategoryDef.description}
                         </p>
                     </motion.div>
 
                     {/* ── Category Tabs ──────────────────────────────────────────── */}
-                    <div className="flex gap-3 mb-6 flex-wrap">
+                    <div className="flex gap-4 mb-10 flex-wrap">
                         {CATEGORIES.map(cat => {
                             const isActive = activeCategory === cat.id;
                             const c = getCategoryColor(cat.id);
@@ -272,166 +272,149 @@ export default function ComparisonTool() {
                                 <button
                                     key={cat.id}
                                     onClick={() => handleCategoryChange(cat.id)}
-                                    className={`px-5 py-2.5 text-[10px] font-black uppercase tracking-widest transition-all border ${isActive
-                                        ? `${c.bg} text-white border-transparent`
-                                        : "bg-white/5 text-gray-500 border-white/5 hover:text-white hover:border-white/20"
+                                    className={`px-8 py-4 text-[10px] font-black uppercase tracking-[0.3em] transition-all duration-700 border ${isActive
+                                        ? `bg-white text-black border-white`
+                                        : "glass text-gray-500 border-white/5 hover:text-white hover:border-white/20"
                                         }`}
                                 >
                                     {cat.labelShort}
-                                    <span className={`ml-2 text-[8px] font-light ${isActive ? "text-white/70" : "text-gray-700"}`}>
-                                        {cat.label}
-                                    </span>
                                 </button>
                             );
                         })}
                     </div>
 
                     {/* ── Search + Filter Bar ─────────────────────────────────────── */}
-                    <div className="bg-zinc-900/50 backdrop-blur-md border border-white/10 p-2 shadow-2xl flex flex-col lg:flex-row gap-2 items-stretch lg:items-center">
-                        {/* Search */}
-                        <div className="flex-1 flex items-center px-4 py-3 border-b lg:border-b-0 lg:border-r border-white/5">
-                            <Search className="text-gray-500 mr-3" size={18} />
-                            <input
-                                type="text"
-                                placeholder="Assureur, type de couverture…"
-                                className="w-full text-sm outline-none bg-transparent text-white placeholder:text-gray-600"
-                                value={searchQuery}
-                                onChange={(e) => setSearchQuery(e.target.value)}
-                            />
-                        </div>
-
-                        {/* Type Selector */}
-                        <div className="lg:w-64 px-4 py-3 border-b lg:border-b-0 lg:border-r border-white/5">
-                            <div className="flex items-center gap-2 mb-1">
-                                <Filter size={12} className={colors.accent} />
-                                <span className="text-[9px] font-black uppercase text-gray-600">Type d&apos;assurance</span>
-                            </div>
-                            <select
-                                value={selectedType}
-                                onChange={(e) => setSelectedType(e.target.value)}
-                                className="w-full text-sm font-bold bg-transparent outline-none cursor-pointer text-white appearance-none"
-                            >
-                                {TYPE_LISTS[activeCategory].map(t => (
-                                    <option key={t} value={t} className="bg-zinc-900">{t}</option>
-                                ))}
-                            </select>
-                        </div>
-
-                        {/* Budget Slider — hidden for VIE */}
-                        {activeCategory !== "VIE" && (
-                            <div className="lg:w-72 px-6 py-3 border-b lg:border-b-0 lg:border-r border-white/5">
-                                <div className="flex justify-between items-center mb-1">
-                                    <div className="flex items-center gap-2">
-                                        <Coins size={12} className={colors.accent} />
-                                        <span className="text-[9px] font-black uppercase text-gray-600">Budget Max / an</span>
-                                    </div>
-                                    <span className="text-xs font-black text-white">{budget.toLocaleString()} F</span>
-                                </div>
+                    <div className="glass border-white/10 p-3 shadow-3xl flex flex-col lg:row gap-3 items-stretch lg:items-center">
+                        <div className="flex flex-col lg:flex-row flex-1 gap-3">
+                            {/* Search */}
+                            <div className="flex-1 flex items-center px-6 py-4 bg-white/[0.02] border border-white/5">
+                                <Search className="text-gray-700 mr-4" size={20} />
                                 <input
-                                    type="range" min="10000" max="1000000" step="10000"
-                                    value={budget} onChange={(e) => setBudget(parseInt(e.target.value))}
-                                    className={`w-full h-0.5 bg-white/10 rounded-lg appearance-none cursor-pointer accent-${currentCategoryDef.colorDark}`}
+                                    type="text"
+                                    placeholder="Rechercher un assureur ou un type de risque..."
+                                    className="w-full text-xs font-bold uppercase tracking-widest outline-none bg-transparent text-white placeholder:text-gray-800"
+                                    value={searchQuery}
+                                    onChange={(e) => setSearchQuery(e.target.value)}
                                 />
                             </div>
-                        )}
 
-                        {/* Sort */}
-                        <div className="lg:w-48 px-4 py-3 border-b lg:border-b-0 lg:border-r border-white/5">
-                            <div className="flex items-center gap-2 mb-1">
-                                <ArrowUpDown size={12} className={colors.accent} />
-                                <span className="text-[9px] font-black uppercase text-gray-600">Trier par</span>
+                            {/* Type Selector */}
+                            <div className="lg:w-72 px-6 py-4 bg-white/[0.02] border border-white/5 relative group">
+                                <div className="flex items-center gap-3 mb-2">
+                                    <Filter size={12} className={colors.accent} />
+                                    <span className="text-[9px] font-black uppercase text-gray-600 tracking-widest">Couverture</span>
+                                </div>
+                                <select
+                                    value={selectedType}
+                                    onChange={(e) => setSelectedType(e.target.value)}
+                                    className="w-full text-[11px] font-black uppercase tracking-widest bg-transparent outline-none cursor-pointer text-white appearance-none"
+                                >
+                                    {TYPE_LISTS[activeCategory].map(t => (
+                                        <option key={t} value={t} className="bg-zinc-950">{t}</option>
+                                    ))}
+                                </select>
                             </div>
-                            <select
-                                value={sortBy}
-                                onChange={(e) => setSortBy(e.target.value as SortKey)}
-                                className="w-full text-sm font-bold bg-transparent outline-none cursor-pointer text-white appearance-none"
-                            >
-                                <option value="premium" className="bg-zinc-900">Prix croissant</option>
-                                <option value="rating" className="bg-zinc-900">Meilleure note</option>
-                                <option value="coverage" className="bg-zinc-900">Couverture max</option>
-                            </select>
+
+                            {/* Budget Slider */}
+                            {activeCategory !== "VIE" && (
+                                <div className="lg:w-80 px-8 py-4 bg-white/[0.02] border border-white/5">
+                                    <div className="flex justify-between items-center mb-3">
+                                        <div className="flex items-center gap-3">
+                                            <Coins size={12} className={colors.accent} />
+                                            <span className="text-[9px] font-black uppercase text-gray-600 tracking-widest">Plafond Budget</span>
+                                        </div>
+                                        <span className="text-xs font-black text-white tabular-nums">{budget.toLocaleString()} F</span>
+                                    </div>
+                                    <input
+                                        type="range" min="10000" max="1000000" step="10000"
+                                        value={budget} onChange={(e) => setBudget(parseInt(e.target.value))}
+                                        className={`w-full h-[2px] bg-white/10 rounded-lg appearance-none cursor-pointer accent-blue-500`}
+                                    />
+                                </div>
+                            )}
+
+                            {/* Sort */}
+                            <div className="lg:w-64 px-6 py-4 bg-white/[0.02] border border-white/5">
+                                <div className="flex items-center gap-3 mb-2">
+                                    <ArrowUpDown size={12} className={colors.accent} />
+                                    <span className="text-[9px] font-black uppercase text-gray-600 tracking-widest">Classement</span>
+                                </div>
+                                <select
+                                    value={sortBy}
+                                    onChange={(e) => setSortBy(e.target.value as SortKey)}
+                                    className="w-full text-[11px] font-black uppercase tracking-widest bg-transparent outline-none cursor-pointer text-white appearance-none"
+                                >
+                                    <option value="premium" className="bg-zinc-950">Prix Croissant</option>
+                                    <option value="rating" className="bg-zinc-950">Indice Confiance</option>
+                                    <option value="coverage" className="bg-zinc-950">Protection Max</option>
+                                </select>
+                            </div>
                         </div>
 
-                        <button className={`${colors.bg} hover:opacity-90 text-white px-8 py-4 font-bold uppercase text-[10px] tracking-widest transition-all lg:h-full`}>
-                            Rechercher
+                        <button className={`bg-white text-black hover:bg-gray-200 px-12 py-5 font-black uppercase text-[11px] tracking-[0.3em] transition-all duration-700 lg:h-full shadow-2xl shadow-white/5`}>
+                            Analyser
                         </button>
                     </div>
                 </div>
             </div>
 
             {/* ── Results ─────────────────────────────────────────────────────── */}
-            <div className="container mx-auto px-6 max-w-6xl mt-12">
-                <div className="flex flex-col lg:flex-row gap-8">
+            <div className="container mx-auto px-6 max-w-7xl mt-20 relative z-10">
+                <div className="flex flex-col lg:flex-row gap-12">
 
                     {/* Sidebar */}
-                    <aside className="lg:w-64 shrink-0">
-                        <div className="bg-zinc-900/30 border border-white/5 p-6 sticky top-32">
-                            <h3 className="font-bold uppercase text-[9px] tracking-widest mb-5 pb-2 border-b border-white/5 text-gray-500">
-                                Trier par
-                            </h3>
-                            <div className="space-y-2">
-                                {(
-                                    [
-                                        { id: "premium", label: "Prix le plus bas", Icon: Coins },
-                                        { id: "rating", label: "Score de confiance", Icon: Star },
-                                        { id: "coverage", label: "Couverture max", Icon: ShieldCheck },
-                                    ] as { id: SortKey; label: string; Icon: any }[]
-                                ).map(({ id, label, Icon }) => (
-                                    <button
-                                        key={id}
-                                        onClick={() => setSortBy(id)}
-                                        className={`w-full flex items-center gap-3 p-3 text-[9px] font-bold uppercase tracking-tight transition-all border ${sortBy === id ? `${colors.bg} text-white border-transparent` : "bg-white/5 text-gray-500 border-white/5 hover:border-white/20"}`}
-                                    >
-                                        <Icon size={14} />
-                                        {label}
-                                    </button>
-                                ))}
-                            </div>
-
-                            {/* Expert tip */}
-                            <div className={`mt-8 p-5 ${activeCategory === "IARDT" ? "bg-blue-500/5 border border-blue-500/20" : activeCategory === "PERSONNES" ? "bg-emerald-500/5 border border-emerald-500/20" : "bg-violet-500/5 border border-violet-500/20"} rounded-sm`}>
-                                <Zap size={16} className={`${colors.accent} mb-2`} />
-                                <h4 className={`text-[9px] font-black uppercase ${colors.accent} mb-1`}>
-                                    Expert Conseil
-                                </h4>
-                                <p className="text-[9px] text-gray-600 leading-relaxed font-light">
-                                    {activeCategory === "IARDT" && "Nos courtiers comparent les tarifs de 10+ assureurs pour votre véhicule ou bien."}
-                                    {activeCategory === "PERSONNES" && "Nos conseillers santé vous guident vers la couverture médicale idéale pour votre famille."}
-                                    {activeCategory === "VIE" && "Nos experts en prévoyance analysent votre profil pour maximiser votre épargne."}
-                                </p>
-                            </div>
-
-                            {/* Category legend */}
-                            <div className="mt-6 space-y-2">
-                                <h3 className="font-bold uppercase text-[9px] tracking-widest mb-3 pb-2 border-b border-white/5 text-gray-500">
-                                    Familles d&apos;assurance
+                    <aside className="lg:w-72 shrink-0">
+                        <div className="sticky top-40 space-y-10">
+                            <div>
+                                <h3 className="font-bold uppercase text-[10px] tracking-[0.4em] mb-8 pb-4 border-b border-white/5 text-gray-600">
+                                    Filtre Actif
                                 </h3>
-                                {CATEGORIES.map(cat => {
-                                    const c = getCategoryColor(cat.id);
-                                    return (
+                                <div className="space-y-3">
+                                    {(
+                                        [
+                                            { id: "premium", label: "Prix Compétitif", Icon: Coins },
+                                            { id: "rating", label: "Meilleure Note", Icon: Star },
+                                            { id: "coverage", label: "Garanties Max", Icon: ShieldCheck },
+                                        ] as { id: SortKey; label: string; Icon: any }[]
+                                    ).map(({ id, label, Icon }) => (
                                         <button
-                                            key={cat.id}
-                                            onClick={() => handleCategoryChange(cat.id)}
-                                            className={`w-full text-left p-2.5 border transition-all ${activeCategory === cat.id ? `border-${cat.colorDark}/50 bg-white/5` : "border-white/5 hover:border-white/10"}`}
+                                            key={id}
+                                            onClick={() => setSortBy(id)}
+                                            className={`w-full flex items-center justify-between p-4 text-[10px] font-black uppercase tracking-widest transition-all duration-700 border ${sortBy === id ? `bg-white text-black border-white` : "bg-white/[0.02] text-gray-700 border-white/5 hover:border-white/10"}`}
                                         >
-                                            <span className={`block text-[9px] font-black uppercase ${c.accent}`}>{cat.labelShort}</span>
-                                            <span className="block text-[8px] text-gray-700 font-light mt-0.5">{cat.label}</span>
+                                            <div className="flex items-center gap-4">
+                                                <Icon size={14} />
+                                                {label}
+                                            </div>
+                                            {sortBy === id && <div className="w-1.5 h-1.5 bg-black rounded-full"></div>}
                                         </button>
-                                    );
-                                })}
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* Expert Card */}
+                            <div className="glass p-8 border-white/5 relative overflow-hidden group">
+                                <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity duration-700">
+                                    <Zap size={40} className="animate-pulse" />
+                                </div>
+                                <h4 className="text-[10px] font-black uppercase text-blue-400 tracking-[0.4em] mb-4">
+                                    Data Insights
+                                </h4>
+                                <p className="text-[11px] text-gray-600 leading-relaxed font-light">
+                                    Analyse prédictive basée sur les retours sinistres et la solidité financière des assureurs partenaires.
+                                </p>
                             </div>
                         </div>
                     </aside>
 
                     {/* Results List */}
-                    <div className="flex-1 space-y-5">
-                        <div className="flex justify-between items-center">
-                            <p className="text-[9px] font-bold uppercase tracking-widest text-gray-600">
-                                <span className={`${colors.accent} font-black`}>{filteredOffers.length}</span>{" "}
-                                offre{filteredOffers.length !== 1 ? "s" : ""} correspondante{filteredOffers.length !== 1 ? "s" : ""}
+                    <div className="flex-1 space-y-8">
+                        <div className="flex justify-between items-center mb-10">
+                            <p className="text-[10px] font-bold uppercase tracking-[0.4em] text-gray-600">
+                                <span className="text-white font-black">{filteredOffers.length}</span> Solutions Identifiées
                             </p>
-                            <span className={`text-[8px] font-black uppercase tracking-widest px-2 py-1 border ${colors.border} ${colors.accent}`}>
-                                {currentCategoryDef.label}
+                            <span className={`text-[10px] font-black uppercase tracking-widest px-4 py-1 border border-white/10 text-gray-500`}>
+                                Segment : {currentCategoryDef.labelShort}
                             </span>
                         </div>
 
@@ -445,20 +428,20 @@ export default function ComparisonTool() {
                             <motion.div
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
-                                className="py-20 text-center bg-zinc-950 border border-dashed border-white/10"
+                                className="py-32 text-center glass border-dashed border-white/10"
                             >
-                                <Search size={40} className="mx-auto text-gray-800 mb-5" />
-                                <h3 className="text-xl font-bold uppercase font-oswald mb-2 text-white">
-                                    Aucune offre trouvée
+                                <Search size={60} className="mx-auto text-gray-900 mb-8" />
+                                <h3 className="text-2xl font-bold uppercase font-oswald mb-4 text-white tracking-widest">
+                                    Aucune Corrélation
                                 </h3>
-                                <p className="text-gray-600 text-sm font-light mb-6">
-                                    Ajustez vos critères ou augmentez votre budget.
+                                <p className="text-gray-600 text-sm font-light mb-10 max-w-xs mx-auto">
+                                    Universalisez vos critères de recherche pour obtenir plus de résultats.
                                 </p>
                                 <button
                                     onClick={() => { setBudget(1000000); setSearchQuery(""); setSelectedType("Tous"); }}
-                                    className={`text-[10px] font-black uppercase border-b ${colors.border} pb-1 ${colors.accent} hover:text-white hover:border-white transition-all`}
+                                    className={`text-[10px] font-black uppercase border-b border-blue-500 pb-2 text-blue-500 hover:text-white hover:border-white transition-all duration-700 tracking-[0.3em]`}
                                 >
-                                    Afficher toutes les offres
+                                    Réinitialiser
                                 </button>
                             </motion.div>
                         )}

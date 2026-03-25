@@ -20,7 +20,7 @@ export default function Navbar() {
 
     useEffect(() => {
         const handleScroll = () => {
-            setIsScrolled(window.scrollY > 50);
+            setIsScrolled(window.scrollY > 20);
         };
 
         window.addEventListener("scroll", handleScroll);
@@ -29,88 +29,88 @@ export default function Navbar() {
 
     return (
         <nav
-            className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${isScrolled ? "bg-black/90 backdrop-blur-md py-4 shadow-lg" : "bg-transparent py-6"
+            className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${isScrolled ? "glass py-3 shadow-2xl" : "bg-transparent py-6"
                 }`}
         >
-            <div className="container mx-auto px-6 flex justify-between items-center max-w-7xl">
-                {/* Logo - Pure Text per SpaceX Style */}
-                <Link href="/" className="group relative z-30 flex items-center gap-3">
-                    <img src="/images/logo.jpg" alt="LBASSUR" className="h-10 md:h-12 w-auto object-contain rounded-sm" />
-                    <span className="text-2xl font-bold uppercase font-oswald text-white tracking-tight hidden sm:block">
+            <div className="container mx-auto px-8 flex justify-between items-center max-w-7xl">
+                {/* Logo */}
+                <Link href="/" className="group relative z-30 flex items-center gap-4">
+                    <div className="relative overflow-hidden rounded-full p-1 bg-white/10 group-hover:bg-white/20 transition-colors">
+                        <img src="/images/logo.jpg" alt="LBASSUR" className="h-8 md:h-10 w-auto object-contain rounded-full" />
+                    </div>
+                    <span className="text-xl font-bold uppercase font-oswald text-white tracking-widest hidden sm:block">
                         LBASSUR
                     </span>
                 </Link>
 
-                {/* Desktop Menu - Minimalist */}
-                <div className="hidden md:flex items-center space-x-8">
+                {/* Desktop Menu - Apple style spacing & font */}
+                <div className="hidden md:flex items-center space-x-10">
                     {navLinks.map((link) => (
                         <Link
                             key={link.name}
                             href={link.href}
-                            className="text-xs uppercase tracking-[0.15em] font-bold text-gray-300 hover:text-white transition-all duration-300 relative group"
+                            className="text-[10px] uppercase tracking-[0.25em] font-bold text-gray-400 hover:text-white transition-all duration-300 relative group"
                         >
                             {link.name}
-                            <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-white transition-all duration-300 group-hover:w-full"></span>
+                            <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-blue-500 transition-all duration-300 group-hover:w-full"></span>
                         </Link>
                     ))}
 
-                    {/* External CTA "Prendre RDV" */}
+                    {/* External CTA - Tesla style Minimalist */}
                     <Link
                         href="/#booking"
-                        className="text-xs uppercase tracking-[0.15em] font-bold text-white border border-white px-5 py-2 hover:bg-white hover:text-black transition-all duration-300"
+                        className="text-[10px] uppercase tracking-[0.2em] font-bold text-white border border-white/20 px-6 py-2.5 hover:bg-white hover:text-black transition-all duration-500 rounded-sm glass"
                     >
-                        Prendre Rendez-vous
+                        Rendez-vous
                     </Link>
                 </div>
 
-                {/* Mobile Menu Button - Minimalist Hamburger */}
+                {/* Mobile Menu Button */}
                 <button
                     className="md:hidden text-white focus:outline-none z-50 p-2"
                     onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                 >
                     {isMobileMenuOpen ? (
-                        <X size={24} className="hover:rotate-90 transition-transform duration-300" />
+                        <X size={20} className="hover:rotate-90 transition-transform duration-300" />
                     ) : (
-                        <div className="space-y-1.5 hover:opacity-70 transition-opacity">
-                            <span className="block w-6 h-0.5 bg-white"></span>
-                            <span className="block w-6 h-0.5 bg-white"></span>
-                            <span className="block w-6 h-0.5 bg-white"></span>
+                        <div className="space-y-1 hover:opacity-70 transition-opacity">
+                            <span className="block w-5 h-0.5 bg-white"></span>
+                            <span className="block w-5 h-0.5 bg-white"></span>
                         </div>
                     )}
                 </button>
             </div>
 
-            {/* Mobile Menu Overlay - Full Screen Dark */}
+            {/* Mobile Menu Overlay */}
             <AnimatePresence>
                 {isMobileMenuOpen && (
                     <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
+                        initial={{ opacity: 0, scale: 1.1 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 1.1 }}
+                        transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
                         className="fixed inset-0 bg-black z-40 flex flex-col justify-center items-center md:hidden"
                     >
-                        <div className="flex flex-col space-y-8 text-center">
-                            {navLinks.map((link) => (
-                                <Link
+                        <div className="flex flex-col space-y-10 text-center">
+                            {navLinks.map((link, i) => (
+                                <motion.div
                                     key={link.name}
-                                    href={link.href}
-                                    onClick={() => setIsMobileMenuOpen(false)}
-                                    className="text-xl uppercase tracking-widest font-bold text-gray-400 hover:text-white transition-colors"
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: 0.1 + i * 0.05 }}
                                 >
-                                    {link.name}
-                                </Link>
+                                    <Link
+                                        href={link.href}
+                                        onClick={() => setIsMobileMenuOpen(false)}
+                                        className="text-2xl uppercase tracking-[0.3em] font-bold text-gray-500 hover:text-white transition-colors"
+                                    >
+                                        {link.name}
+                                    </Link>
+                                </motion.div>
                             ))}
-
-                            <Link
-                                href="/#booking"
-                                onClick={() => setIsMobileMenuOpen(false)}
-                                className="text-xl uppercase tracking-widest font-bold text-white border border-white px-8 py-3 hover:bg-white hover:text-black transition-all duration-300 mt-4"
-                            >
-                                Prendre Rendez-vous
-                            </Link>
                         </div>
 
-                        <div className="absolute bottom-10 text-xs text-gray-500 uppercase tracking-widest">
+                        <div className="absolute bottom-12 text-[10px] text-gray-600 uppercase tracking-[0.5em]">
                             LBASSUR &copy; {new Date().getFullYear()}
                         </div>
                     </motion.div>
@@ -119,3 +119,4 @@ export default function Navbar() {
         </nav>
     );
 }
+

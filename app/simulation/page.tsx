@@ -47,7 +47,7 @@ type FormData = {
 
 const CATEGORIES = [
     { id: "iardt", title: "IARDT (Dommages & RC)", icon: Shield, color: "text-blue-500", glow: "border-blue-500/50" },
-    { id: "personnes", title: "PERSONNES (Santé & Prévoyance)", icon: Heart, color: "text-emerald-500", glow: "border-emerald-500/50" },
+    { id: "personnes", title: "PERSONNES (Santé & Vie)", icon: Heart, color: "text-emerald-500", glow: "border-emerald-500/50" },
     { id: "vie", title: "VIE (Épargne & Retraite)", icon: Coins, color: "text-violet-500", glow: "border-violet-500/50" },
 ];
 
@@ -71,25 +71,24 @@ export default function SimulationPage() {
         priority: "",
     });
 
-    // Génération dynamique des étapes selon le parcours choisi
     const getFlowSteps = () => {
         const flow = [
-            { id: "category", title: "Famille d'assurance" },
-            { id: "type", title: "Type de contrat" },
+            { id: "category", title: "Famille" },
+            { id: "type", title: "Contrat" },
         ];
 
         if (formData.type === "Assurance Auto") {
             flow.push(
-                { id: "autoUsage", title: "Usage du véhicule" },
-                { id: "autoPower", title: "Puissance fiscale" },
-                { id: "autoEnergy", title: "Carburant" },
-                { id: "autoDuration", title: "Durée souhaitée" }
+                { id: "autoUsage", title: "Usage" },
+                { id: "autoPower", title: "Puissance" },
+                { id: "autoEnergy", title: "Énergie" },
+                { id: "autoDuration", title: "Durée" }
             );
         } else if (formData.type) {
-            flow.push({ id: "priority", title: "Votre priorité" });
+            flow.push({ id: "priority", title: "Priorité" });
         }
 
-        flow.push({ id: "result", title: "Résultat" });
+        flow.push({ id: "result", title: "Analyse" });
         return flow;
     };
 
@@ -105,7 +104,6 @@ export default function SimulationPage() {
         nextStep();
     };
 
-    // Calcul du tarif exact pour l'assurance auto
     const getAutoPrice = () => {
         if (!isAutoFlow || !formData.autoUsage || !formData.autoPower || !formData.autoEnergy || !formData.autoDuration) return null;
         try {
@@ -118,53 +116,66 @@ export default function SimulationPage() {
     const autoPrice = getAutoPrice();
 
     return (
-        <main className="bg-black text-white min-h-screen">
+        <main className="bg-black text-white min-h-screen relative overflow-hidden">
+            {/* Background Texture */}
+            <div className="absolute inset-0 z-0 opacity-[0.02] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
+            <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-blue-500/[0.03] rounded-full blur-[120px] -z-0"></div>
+
             <Navbar />
 
-            <div className="pt-32 pb-24 container mx-auto px-6">
-                <div className="max-w-2xl mx-auto">
-                    <div className="mb-12 text-center">
-                        <span className="text-blue-500 font-bold uppercase tracking-widest text-xs mb-4 block">
-                            Simulation Intelligente
-                        </span>
-                        <h1 className="text-4xl md:text-5xl font-bold font-oswald uppercase mb-4 text-white">
-                            Précisez votre besoin
+            <div className="pt-40 pb-32 container mx-auto px-6 relative z-10 max-w-7xl">
+                <div className="max-w-3xl mx-auto">
+                    <div className="mb-20 text-center">
+                        <motion.div
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            className="inline-block glass px-4 py-1 rounded-full mb-6 border-blue-500/20"
+                        >
+                            <span className="text-blue-400 font-bold uppercase tracking-[0.4em] text-[9px]">Calcul Temps Réel</span>
+                        </motion.div>
+                        <h1 className="text-5xl md:text-7xl font-bold font-oswald uppercase mb-6 text-white tracking-tighter">
+                            Simulation <span className="text-gradient">Intelligente</span>
                         </h1>
-                        <p className="text-gray-400 font-light">
-                            {isAutoFlow ? "Obtenez un tarif précis et instantané pour votre véhicule." : "Répondez à quelques questions pour cibler la meilleure offre."}
+                        <p className="text-gray-500 font-light text-lg max-w-xl mx-auto">
+                            Précisez vos besoins pour obtenir une analyse instantanée de vos primes d'assurance.
                         </p>
                     </div>
 
-                    {/* Progress bar */}
-                    <div className="flex gap-2 mb-12">
+                    {/* Minimalist Progress Bar */}
+                    <div className="flex gap-3 mb-16 px-2">
                         {steps.map((s, idx) => (
-                            <div
-                                key={s.id}
-                                className={`h-1.5 flex-1 transition-all duration-700 rounded-full ${idx <= currentStepIndex ? "bg-blue-500 shadow-[0_0_10px_rgba(59,130,246,0.5)]" : "bg-white/10"}`}
-                            />
+                            <div key={s.id} className="flex-1 flex flex-col gap-3">
+                                <div
+                                    className={`h-0.5 flex-1 transition-all duration-1000 rounded-full ${idx <= currentStepIndex ? "bg-blue-500 shadow-[0_0_15px_rgba(59,130,246,0.6)]" : "bg-white/5"}`}
+                                />
+                                <span className={`text-[8px] uppercase tracking-widest font-black text-center transition-colors duration-700 ${idx <= currentStepIndex ? "text-blue-400" : "text-gray-700"}`}>
+                                    {s.title}
+                                </span>
+                            </div>
                         ))}
                     </div>
 
-                    <div className="min-h-[400px]">
+                    <div className="min-h-[450px]">
                         <AnimatePresence mode="wait">
                             {/* ÉTAPE 1: Catégorie */}
                             {currentStep.id === "category" && (
-                                <motion.div key="category" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-4">
-                                    <h2 className="text-xl font-bold mb-8 uppercase text-center text-white/90">Quel domaine cherchez-vous ?</h2>
-                                    <div className="grid grid-cols-1 gap-4">
+                                <motion.div key="category" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.6 }} className="space-y-6">
+                                    <h2 className="text-2xl font-bold font-oswald mb-10 uppercase text-center text-white/70 tracking-widest">Choisir un Domaine</h2>
+                                    <div className="grid grid-cols-1 gap-5">
                                         {CATEGORIES.map(cat => (
                                             <button
                                                 key={cat.id}
                                                 onClick={() => updateForm("category", cat.id)}
-                                                className="p-8 border border-white/5 bg-zinc-900/50 hover:bg-white/5 hover:border-white/20 transition-all flex items-center justify-between group rounded-sm"
+                                                className="glass p-10 border-white/5 hover:bg-white/[0.05] hover:border-white/20 transition-all duration-700 flex items-center justify-between group overflow-hidden"
                                             >
-                                                <div className="flex items-center gap-6">
-                                                    <div className={`p-4 bg-black/40 rounded-sm border border-white/5 transition-colors group-hover:${cat.glow}`}>
-                                                        <cat.icon className={cat.color} size={32} />
+                                                <div className="flex items-center gap-8 relative z-10">
+                                                    <div className={`w-16 h-16 bg-black/40 rounded-full border border-white/5 flex items-center justify-center transition-all duration-700 group-hover:scale-110 group-hover:${cat.glow}`}>
+                                                        <cat.icon className={cat.color} size={28} />
                                                     </div>
-                                                    <span className="font-bold uppercase tracking-widest text-sm text-white">{cat.title}</span>
+                                                    <span className="font-bold uppercase tracking-[0.3em] text-[12px] text-white transition-all duration-700 group-hover:translate-x-2">{cat.title}</span>
                                                 </div>
-                                                <ChevronRight className="text-gray-600 group-hover:text-white transition-all" />
+                                                <ChevronRight className="text-gray-700 group-hover:text-blue-400 transition-all duration-700 group-hover:translate-x-2" size={20} />
+                                                <div className={`absolute top-0 right-0 w-32 h-32 ${cat.color} opacity-0 blur-[100px] group-hover:opacity-10 transition-opacity duration-1000`}></div>
                                             </button>
                                         ))}
                                     </div>
@@ -173,14 +184,14 @@ export default function SimulationPage() {
 
                             {/* ÉTAPE 2: Type */}
                             {currentStep.id === "type" && (
-                                <motion.div key="type" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
-                                    <h2 className="text-xl font-bold mb-8 uppercase text-center text-white/90">Sélectionnez le type exact :</h2>
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <motion.div key="type" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.6 }}>
+                                    <h2 className="text-2xl font-bold font-oswald mb-10 uppercase text-center text-white/70 tracking-widest">Nature du Contrat</h2>
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                                         {SUB_TYPES[formData.category]?.map(type => (
                                             <button
                                                 key={type}
                                                 onClick={() => updateForm("type", type)}
-                                                className="p-6 border border-white/5 bg-zinc-900/50 hover:border-blue-500 hover:text-blue-500 transition-all text-center font-bold uppercase text-[10px] tracking-widest text-white rounded-sm"
+                                                className="glass py-8 px-6 border-white/5 hover:border-blue-500/30 hover:bg-blue-500/[0.03] transition-all duration-700 text-center font-bold uppercase text-[10px] tracking-[0.3em] text-white"
                                             >
                                                 {type}
                                             </button>
@@ -192,19 +203,21 @@ export default function SimulationPage() {
 
                             {/* ÉTAPES AUTO SPÉCIFIQUES */}
                             {currentStep.id === "autoUsage" && (
-                                <motion.div key="autoUsage" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
-                                    <h2 className="text-xl font-bold mb-8 uppercase text-center text-white/90">Quel est l'usage de votre véhicule ?</h2>
-                                    <div className="grid grid-cols-1 gap-4">
+                                <motion.div key="autoUsage" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.6 }}>
+                                    <h2 className="text-2xl font-bold font-oswald mb-10 uppercase text-center text-white/70 tracking-widest">Usage du Véhicule</h2>
+                                    <div className="grid grid-cols-1 gap-5">
                                         {[
-                                            { val: "Promenade & Affaires", desc: "Déplacements personnels et professionnels classiques", icon: Briefcase },
-                                            { val: "Transport Propre Compte", desc: "Transport de marchandises ou matériel vous appartenant", icon: Car },
+                                            { val: "Promenade & Affaires", desc: "Privé & Professionnel standard", icon: Briefcase },
+                                            { val: "Transport Propre Compte", desc: "Transport de vos propres biens", icon: Car },
                                         ].map(item => (
-                                            <button key={item.val} onClick={() => updateForm("autoUsage", item.val)} className="p-6 border border-white/5 bg-zinc-900/50 hover:border-blue-500 hover:bg-blue-500/5 transition-all text-left group">
-                                                <div className="flex items-center gap-4 mb-2">
-                                                    <item.icon size={20} className="text-blue-500" />
-                                                    <span className="font-bold uppercase tracking-widest text-sm text-white">{item.val}</span>
+                                            <button key={item.val} onClick={() => updateForm("autoUsage", item.val)} className="glass p-8 border-white/5 hover:border-blue-500/30 hover:bg-blue-500/[0.03] transition-all duration-700 text-left group">
+                                                <div className="flex items-center gap-6 mb-3">
+                                                    <div className="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center group-hover:bg-blue-500/10 transition-colors duration-700">
+                                                        <item.icon size={18} className="text-blue-500" />
+                                                    </div>
+                                                    <span className="font-bold uppercase tracking-[0.2em] text-[11px] text-white">{item.val}</span>
                                                 </div>
-                                                <p className="text-gray-500 text-xs pl-9">{item.desc}</p>
+                                                <p className="text-gray-600 text-[10px] pl-16 font-light">{item.desc}</p>
                                             </button>
                                         ))}
                                     </div>
@@ -213,13 +226,14 @@ export default function SimulationPage() {
                             )}
 
                             {currentStep.id === "autoPower" && (
-                                <motion.div key="autoPower" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
-                                    <h2 className="text-xl font-bold mb-8 uppercase text-center text-white/90">Puissance fiscale (Chevaux-Vapeur) ?</h2>
-                                    <div className="grid grid-cols-2 gap-4">
+                                <motion.div key="autoPower" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.6 }}>
+                                    <h2 className="text-2xl font-bold font-oswald mb-10 uppercase text-center text-white/70 tracking-widest">Puissance Fiscale</h2>
+                                    <div className="grid grid-cols-2 gap-5">
                                         {["7-10 CV", "11-14 CV"].map(val => (
-                                            <button key={val} onClick={() => updateForm("autoPower", val)} className="p-8 border border-white/5 bg-zinc-900/50 hover:border-blue-500 hover:text-blue-500 transition-all text-center font-black uppercase text-lg tracking-widest text-white">
-                                                {val}
-                                                <span className="block text-[9px] font-bold text-gray-500 mt-2">{val === "7-10 CV" ? "Petite cylindrée" : "Grande cylindrée"}</span>
+                                            <button key={val} onClick={() => updateForm("autoPower", val)} className="glass p-12 border-white/5 hover:border-blue-500/30 transition-all duration-700 text-center flex flex-col items-center justify-center">
+                                                <span className="font-black uppercase text-3xl tracking-widest text-white mb-4">{val}</span>
+                                                <div className="h-[1px] w-8 bg-blue-500/30 mb-4 transition-all duration-700 group-hover:w-16"></div>
+                                                <span className="text-[9px] font-bold text-gray-700 uppercase tracking-widest leading-none">{val === "7-10 CV" ? "Berline / Compacte" : "SUV / Premium"}</span>
                                             </button>
                                         ))}
                                     </div>
@@ -228,13 +242,15 @@ export default function SimulationPage() {
                             )}
 
                             {currentStep.id === "autoEnergy" && (
-                                <motion.div key="autoEnergy" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
-                                    <h2 className="text-xl font-bold mb-8 uppercase text-center text-white/90">Quel type de carburant ?</h2>
-                                    <div className="grid grid-cols-2 gap-4">
+                                <motion.div key="autoEnergy" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.6 }}>
+                                    <h2 className="text-2xl font-bold font-oswald mb-10 uppercase text-center text-white/70 tracking-widest">Motorisation</h2>
+                                    <div className="grid grid-cols-2 gap-5">
                                         {["Essence", "Diesel"].map(val => (
-                                            <button key={val} onClick={() => updateForm("autoEnergy", val)} className="p-8 border border-white/5 bg-zinc-900/50 hover:border-blue-500 hover:text-blue-500 transition-all text-center font-black uppercase text-lg tracking-widest text-white flex flex-col items-center gap-3">
-                                                <Zap size={24} className={val === "Essence" ? "text-yellow-500" : "text-gray-400"} />
-                                                {val}
+                                            <button key={val} onClick={() => updateForm("autoEnergy", val)} className="glass p-12 border-white/5 hover:border-blue-500/30 transition-all duration-700 text-center flex flex-col items-center gap-6 group">
+                                                <div className={`w-16 h-16 bg-white/5 rounded-full flex items-center justify-center transition-all duration-700 group-hover:scale-110 ${val === "Essence" ? "group-hover:bg-yellow-500/10" : "group-hover:bg-gray-400/10"}`}>
+                                                    <Zap size={24} className={val === "Essence" ? "text-yellow-500" : "text-gray-400"} />
+                                                </div>
+                                                <span className="font-black uppercase text-xl tracking-[0.3em] text-white">{val}</span>
                                             </button>
                                         ))}
                                     </div>
@@ -243,13 +259,13 @@ export default function SimulationPage() {
                             )}
 
                             {currentStep.id === "autoDuration" && (
-                                <motion.div key="autoDuration" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
-                                    <h2 className="text-xl font-bold mb-8 uppercase text-center text-white/90">Durée de couverture souhaitée ?</h2>
-                                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                                <motion.div key="autoDuration" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.6 }}>
+                                    <h2 className="text-2xl font-bold font-oswald mb-10 uppercase text-center text-white/70 tracking-widest">Durée de Couverture</h2>
+                                    <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
                                         {["1 MOIS", "2 MOIS", "3 MOIS", "6 MOIS", "1 AN"].map(val => (
-                                            <button key={val} onClick={() => updateForm("autoDuration", val)} className="p-6 border border-white/5 bg-zinc-900/50 hover:border-blue-500 hover:text-blue-500 transition-all text-center font-bold uppercase text-xs tracking-widest text-white flex flex-col items-center gap-2">
-                                                <Clock size={16} className="text-blue-500" />
-                                                {val}
+                                            <button key={val} onClick={() => updateForm("autoDuration", val)} className="glass py-8 border-white/5 hover:border-white/20 transition-all duration-700 text-center flex flex-col items-center gap-4 group">
+                                                <Clock size={16} className="text-blue-500 transition-transform duration-700 group-hover:scale-110" />
+                                                <span className="font-bold uppercase text-[10px] tracking-widest text-white">{val}</span>
                                             </button>
                                         ))}
                                     </div>
@@ -259,11 +275,11 @@ export default function SimulationPage() {
 
                             {/* ÉTAPE PRIORITY (Hors Auto) */}
                             {currentStep.id === "priority" && (
-                                <motion.div key="priority" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
-                                    <h2 className="text-xl font-bold mb-8 uppercase text-center text-white/90">Quelle est votre priorité ?</h2>
+                                <motion.div key="priority" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.6 }}>
+                                    <h2 className="text-2xl font-bold font-oswald mb-10 uppercase text-center text-white/70 tracking-widest">Objectif Prioritaire</h2>
                                     <div className="grid grid-cols-1 gap-4">
                                         {["Prix minimum", "Couverture maximale", "Rapport Qualité/Prix"].map(p => (
-                                            <button key={p} onClick={() => updateForm("priority", p)} className="p-6 border border-white/5 bg-zinc-900/50 hover:border-blue-500 transition-all uppercase text-[10px] font-black tracking-widest text-white">
+                                            <button key={p} onClick={() => updateForm("priority", p)} className="glass py-8 border-white/5 hover:border-blue-500/30 transition-all duration-700 uppercase text-[11px] font-black tracking-[0.3em] text-white">
                                                 {p}
                                             </button>
                                         ))}
@@ -274,45 +290,52 @@ export default function SimulationPage() {
 
                             {/* ÉTAPE FINALE: Résultat */}
                             {currentStep.id === "result" && (
-                                <motion.div key="result" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="text-center">
-                                    <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: "spring", damping: 10 }} className="w-20 h-20 bg-blue-500/10 border border-blue-500/20 rounded-full flex items-center justify-center mx-auto mb-6 text-blue-500">
-                                        <Check size={40} />
+                                <motion.div key="result" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8 }} className="text-center">
+                                    <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: "spring", damping: 10, delay: 0.2 }} className="w-24 h-24 bg-blue-500/10 border border-blue-500/20 rounded-full flex items-center justify-center mx-auto mb-10 text-blue-400 shadow-[0_0_50px_rgba(59,130,246,0.2)]">
+                                        <Check size={48} />
                                     </motion.div>
 
                                     {isAutoFlow ? (
                                         <>
-                                            <h2 className="text-3xl font-bold font-oswald uppercase mb-2 text-white">Tarif Immédiat</h2>
-                                            <p className="text-gray-400 mb-8 font-light text-sm">Responsabilité Civile Obligatoire — L'Africaine des Assurances</p>
+                                            <h2 className="text-4xl font-bold font-oswald uppercase mb-4 text-white tracking-tight">Analyse Terminée</h2>
+                                            <p className="text-gray-500 mb-12 font-light text-lg">Responsabilité Civile Obligatoire — Référence Marché</p>
 
-                                            <div className="bg-gradient-to-br from-blue-900/40 to-black border border-blue-500/30 p-8 mb-8 relative overflow-hidden">
-                                                <div className="absolute top-0 right-0 p-4 opacity-10 pointer-events-none"><Car size={120} /></div>
-                                                <div className="flex flex-col md:flex-row justify-between items-center gap-6 relative z-10">
-                                                    <div className="text-left space-y-2">
-                                                        <span className="text-[10px] font-black uppercase text-blue-400 tracking-widest">{formData.autoUsage}</span>
-                                                        <h3 className="text-2xl font-black uppercase text-white">{formData.autoPower} • {formData.autoEnergy}</h3>
-                                                        <span className="text-xs font-bold uppercase text-gray-500">Durée : {formData.autoDuration}</span>
+                                            <div className="glass border-blue-500/30 p-10 mb-12 relative overflow-hidden group">
+                                                <div className="absolute top-0 right-0 p-8 opacity-5 pointer-events-none group-hover:opacity-10 transition-opacity duration-1000 rotate-12"><Car size={160} /></div>
+                                                <div className="flex flex-col md:flex-row justify-between items-center gap-10 relative z-10">
+                                                    <div className="text-left space-y-4">
+                                                        <div className="inline-block bg-blue-500/10 px-3 py-1 rounded-sm border border-blue-500/20">
+                                                            <span className="text-[9px] font-black uppercase text-blue-400 tracking-[0.3em]">{formData.autoUsage}</span>
+                                                        </div>
+                                                        <h3 className="text-3xl font-black uppercase text-white tracking-widest">{formData.autoPower} • {formData.autoEnergy}</h3>
+                                                        <div className="flex items-center gap-3 text-gray-500 uppercase text-[10px] font-bold tracking-widest">
+                                                            <Clock size={12} className="text-blue-500" />
+                                                            Engagement : {formData.autoDuration}
+                                                        </div>
                                                     </div>
                                                     <div className="text-right">
-                                                        <span className="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">Prime Nette</span>
-                                                        <span className="text-4xl font-black text-white">{autoPrice?.toLocaleString()}</span>
-                                                        <span className="text-sm font-bold text-blue-500 ml-2">F.CFA</span>
+                                                        <span className="block text-[10px] font-bold text-gray-700 uppercase tracking-[0.4em] mb-3">Prime Nette Estimée</span>
+                                                        <div className="flex items-baseline justify-end gap-3 transition-transform duration-700 hover:scale-105 origin-right">
+                                                            <span className="text-6xl font-black text-white tabular-nums">{autoPrice?.toLocaleString()}</span>
+                                                            <span className="text-xl font-bold text-blue-500 font-oswald">CFA</span>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </>
                                     ) : (
                                         <>
-                                            <h2 className="text-3xl font-bold font-oswald uppercase mb-4 text-white">Analyse Terminée !</h2>
-                                            <p className="text-gray-400 mb-10 font-light">Nous avons identifié les meilleures options pour votre assurance <span className="text-blue-500 font-bold uppercase">{formData.type}</span>.</p>
+                                            <h2 className="text-4xl font-bold font-oswald uppercase mb-6 text-white tracking-tight">Ciblage Effectué</h2>
+                                            <p className="text-gray-500 mb-12 font-light text-lg max-w-lg mx-auto leading-relaxed">Nous avons identifié les protocoles optimaux pour votre protection <span className="text-white font-bold uppercase tracking-widest ml-1">{formData.type}</span>.</p>
                                         </>
                                     )}
 
-                                    <div className="flex flex-col sm:flex-row gap-4">
-                                        <button onClick={() => { setCurrentStepIndex(0); setFormData({ category: "", type: "", autoUsage: "", autoPower: "", autoEnergy: "", autoDuration: "", priority: "" }) }} className="flex-1 border border-white/10 text-white py-5 text-[10px] font-black uppercase tracking-widest hover:bg-white hover:text-black transition-all">
-                                            Nouvelle Simulation
+                                    <div className="flex flex-col sm:flex-row gap-5 max-w-2xl mx-auto">
+                                        <button onClick={() => { setCurrentStepIndex(0); setFormData({ category: "", type: "", autoUsage: "", autoPower: "", autoEnergy: "", autoDuration: "", priority: "" }) }} className="flex-1 border border-white/5 bg-white/[0.02] text-gray-500 py-6 text-[10px] font-black uppercase tracking-[0.3em] hover:bg-white/5 hover:text-white transition-all duration-700">
+                                            Nouvelle Session
                                         </button>
-                                        <a href={`/compare?type=${encodeURIComponent(formData.type)}`} className="flex-[2] bg-blue-600 text-white py-5 text-[10px] font-black uppercase tracking-[0.2em] hover:bg-blue-700 transition-all shadow-xl shadow-blue-600/20">
-                                            {isAutoFlow ? "Comparer avec les autres offres" : "Voir les meilleures offres"}
+                                        <a href={`/compare?type=${encodeURIComponent(formData.type)}`} className="flex-[1.5] bg-blue-600 text-white py-6 text-[10px] font-black uppercase tracking-[0.4em] hover:bg-blue-500 transition-all duration-700 shadow-[0_0_40px_rgba(59,130,246,0.3)] hover:scale-105 active:scale-95">
+                                            {isAutoFlow ? "Accéder au Comparatif" : "Voir les Offres"}
                                         </a>
                                     </div>
                                 </motion.div>
@@ -327,7 +350,7 @@ export default function SimulationPage() {
 }
 
 const BackButton = ({ onClick }: { onClick: () => void }) => (
-    <button onClick={onClick} className="mt-10 text-[10px] font-bold uppercase tracking-widest text-gray-500 hover:text-white transition-colors flex items-center justify-center w-full gap-2">
-        ← Étape Précédente
+    <button onClick={onClick} className="mt-16 text-[10px] font-bold uppercase tracking-[0.4em] text-gray-700 hover:text-white transition-colors duration-700 flex items-center justify-center w-full gap-3 group">
+        <span className="transition-transform duration-700 group-hover:-translate-x-1">←</span> Configuration Précédente
     </button>
 );

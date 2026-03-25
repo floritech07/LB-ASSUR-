@@ -8,64 +8,76 @@ const testimonials = [
         name: "Jean-Pierre T.",
         role: "Directeur PME",
         content: "Grâce à LBASSUR, nous avons réduit nos primes d'assurance de 20% tout en améliorant nos garanties. Un audit d'une précision remarquable.",
-        color: "bg-blue-900 text-blue-200 border-blue-500/30"
     },
     {
         name: "Marie L.",
         role: "Chef d'entreprise",
         content: "Un accompagnement humain et réactif. Lors de notre dernier sinistre, l'équipe a géré l'intégralité du dossier. Une tranquillité d'esprit précieuse.",
-        color: "bg-emerald-900 text-emerald-200 border-emerald-500/30"
     },
     {
         name: "Samuel K.",
         role: "Particulier",
         content: "Enfin un courtier qui prend le temps d'expliquer les clauses complexes. LBASSUR m'a aidé à choisir la meilleure prévoyance pour ma famille.",
-        color: "bg-violet-900 text-violet-200 border-violet-500/30"
     }
 ];
 
 export default function TestimonialsSection() {
     return (
-        <section className="py-24 bg-black overflow-hidden">
-            <div className="container mx-auto px-6">
+        <section className="py-32 bg-black overflow-hidden relative border-t border-white/5">
+            {/* Background Texture */}
+            <div className="absolute inset-0 z-0 opacity-[0.02] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
+
+            <div className="container mx-auto px-6 relative z-10 max-w-7xl">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6 }}
+                    transition={{ duration: 0.8 }}
                     viewport={{ once: true }}
-                    className="text-center mb-16"
+                    className="text-center mb-24"
                 >
-                    <h2 className="text-3xl md:text-5xl font-bold uppercase tracking-widest font-oswald text-white mb-4">
-                        Ils nous font confiance
+                    <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        className="inline-block glass px-4 py-1 rounded-full mb-6 border-blue-500/20"
+                    >
+                        <span className="text-blue-400 font-bold uppercase tracking-[0.4em] text-[9px]">Retours Client</span>
+                    </motion.div>
+                    <h2 className="text-5xl md:text-7xl font-bold uppercase tracking-tighter font-oswald text-white mb-6">
+                        Leur Confiance
                     </h2>
-                    <div className="h-1 w-24 bg-white mx-auto"></div>
                 </motion.div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
                     {testimonials.map((t, index) => (
                         <motion.div
                             key={index}
                             initial={{ opacity: 0, y: 30 }}
                             whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.5, delay: index * 0.1 }}
+                            transition={{ duration: 0.8, delay: index * 0.1 }}
                             viewport={{ once: true }}
-                            className="bg-zinc-900 p-8 border border-white/5 hover:border-white/20 transition-all duration-500 relative group"
+                            className="glass p-12 border-white/5 hover:border-blue-500/20 transition-all duration-700 relative group overflow-hidden"
                         >
-                            <Quote className="absolute top-6 right-6 text-white/10 group-hover:text-white/20 transition-colors" size={40} />
+                            <Quote className="absolute -top-4 -right-4 text-blue-500/5 group-hover:text-blue-500/10 transition-colors duration-1000 rotate-12" size={120} />
 
-                            <div className="flex items-center gap-4 mb-6">
-                                <div className={`w-12 h-12 rounded-full flex items-center justify-center font-bold text-lg font-oswald border ${t.color}`}>
+                            <div className="flex items-center gap-6 mb-10">
+                                <div className="w-14 h-14 rounded-full flex items-center justify-center font-bold text-xl font-oswald border border-blue-500/20 bg-blue-500/5 text-blue-400">
                                     {t.name.charAt(0)}
                                 </div>
                                 <div>
-                                    <h4 className="font-bold text-white uppercase text-sm tracking-wider">{t.name}</h4>
-                                    <p className="text-gray-500 text-xs uppercase">{t.role}</p>
+                                    <h4 className="font-bold text-white uppercase text-[11px] tracking-[0.2em]">{t.name}</h4>
+                                    <p className="text-gray-600 text-[10px] uppercase tracking-widest mt-1 font-medium">{t.role}</p>
                                 </div>
                             </div>
 
-                            <p className="text-gray-300 italic leading-relaxed">
+                            <p className="text-gray-400 italic leading-relaxed font-light text-lg">
                                 "{t.content}"
                             </p>
+
+                            <div className="mt-8 flex gap-1">
+                                {[...Array(5)].map((_, i) => (
+                                    <div key={i} className="w-1 h-1 bg-blue-500/30 rounded-full"></div>
+                                ))}
+                            </div>
                         </motion.div>
                     ))}
                 </div>
@@ -73,3 +85,4 @@ export default function TestimonialsSection() {
         </section>
     );
 }
+

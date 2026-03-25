@@ -2,43 +2,49 @@ import Link from "next/link";
 
 export default function Footer() {
     return (
-        <footer id="contact" className="bg-black text-white py-20 px-6 border-t border-gray-900">
-            <div className="container mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
-                <div className="flex items-center gap-4">
-                    <img src="/images/logo.jpg" alt="LBASSUR" className="h-12 w-auto object-contain rounded-sm" />
-                    <div>
-                        <h3 className="text-xl font-bold uppercase tracking-widest font-oswald mb-1">LBASSUR</h3>
-                        <p className="text-gray-500 text-xs uppercase tracking-widest">Courtier en Assurance Multi-spécialiste</p>
+        <footer id="footer" className="bg-black text-white py-24 px-6 border-t border-white/5 relative overflow-hidden">
+            {/* Background Texture */}
+            <div className="absolute inset-0 z-0 opacity-[0.02] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
+
+            <div className="container mx-auto relative z-10 max-w-7xl">
+                <div className="flex flex-col md:flex-row justify-between items-center gap-12">
+                    <div className="flex items-center gap-6">
+                        <img src="/images/logo.jpg" alt="LBASSUR" className="h-10 w-auto object-contain rounded-full grayscale hover:grayscale-0 transition-all duration-700" />
+                        <div>
+                            <h3 className="text-xl font-bold uppercase tracking-[0.2em] font-oswald mb-2 text-white/90">LBASSUR</h3>
+                            <p className="text-gray-600 text-[9px] uppercase tracking-[0.4em] font-medium leading-none">Courtier Haute Performance</p>
+                        </div>
+                    </div>
+
+                    <div className="flex flex-col sm:flex-row gap-8 text-[10px] text-gray-500 uppercase tracking-[0.3em] text-center sm:text-left font-bold">
+                        <Link href="/mentions-legales" className="hover:text-blue-400 transition-colors duration-500">Mentions Légales</Link>
+                        <Link href="/politique-confidentialite" className="hover:text-blue-400 transition-colors duration-500">Confidentialité</Link>
+                        <Link href="#contact" className="hover:text-blue-400 transition-colors duration-500">Support</Link>
+                    </div>
+
+                    <div className="text-[10px] text-gray-700 uppercase tracking-[0.3em] font-bold">
+                        &copy; {new Date().getFullYear()} LBASSUR. All rights reserved.
                     </div>
                 </div>
 
-                <div className="flex flex-col sm:flex-row gap-6 text-[10px] sm:text-xs text-gray-500 uppercase tracking-[0.2em] text-center sm:text-left font-bold">
-                    <Link href="/mentions-legales" className="hover:text-white transition-colors">Mentions Légales</Link>
-                    <Link href="/politique-confidentialite" className="hover:text-white transition-colors">Politique de Confidentialité</Link>
-                </div>
-
-                <div className="text-xs text-gray-600 uppercase tracking-widest">
-                    &copy; {new Date().getFullYear()} LBASSUR
-                </div>
-            </div>
-
-            {/* Developer Signature */}
-            <div className="container mx-auto mt-12 pt-8 border-t border-gray-900">
-                <div className="flex flex-col items-center gap-2 text-center">
-                    <p className="text-xs text-gray-600">
-                        Développé avec <span className="text-blue-500 inline-block animate-pulse">♥</span> par{' '}
-                        <span className="text-blue-400 font-semibold">floridev07</span>
-                    </p>
-                    <p className="text-xs text-gray-700 italic">
-                        Marc-Florian CHAKOUN
-                    </p>
-                    <p className="text-[10px] text-gray-800 mt-1">
-                        <span className="text-blue-500/50">floridev07</span> est une marque déposée de{' '}
-                        <span className="text-gray-600 font-semibold">Floritech, Inc.</span>
-                    </p>
+                {/* Developer Signature - Refined */}
+                <div className="mt-20 pt-10 border-t border-white/5">
+                    <div className="flex flex-col items-center gap-3 text-center opacity-60 hover:opacity-100 transition-opacity duration-700">
+                        <p className="text-[10px] text-gray-600 uppercase tracking-[0.2em]">
+                            Engineered by{' '}
+                            <span className="text-white font-bold ml-1">floridev07</span>
+                        </p>
+                        <p className="text-[9px] text-gray-700 italic tracking-widest leading-none">
+                            Marc-Florian CHAKOUN
+                        </p>
+                        <div className="h-[1px] w-4 bg-blue-500/30 my-1"></div>
+                        <p className="text-[8px] text-gray-800 tracking-[0.3em] uppercase">
+                            A <span className="text-gray-600 font-bold">Floritech, Inc.</span> brand
+                        </p>
+                    </div>
                 </div>
             </div>
-
         </footer>
     );
 }
+
